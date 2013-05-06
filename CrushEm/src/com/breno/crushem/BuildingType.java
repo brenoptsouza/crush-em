@@ -1,0 +1,10 @@
+package com.breno.crushem;
+
+public enum BuildingType
+{
+	SPARTAN_BLUE_GUY_FOR_TEST,
+	SPARTAN_RED_GUY_FOR_TEST,
+	SPARTAN_GREEN_GUY_FOR_TEST,
+	SPARTAN_ECONOMY,
+	SPARTAN_POPULATION
+}

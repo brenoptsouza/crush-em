@@ -196,14 +196,14 @@ public class BaseManagementPanel extends Group
 						mBattlefield.getPlayerBase().spendCash(cost);
 						if(mBuildingType == BuildingType.SPARTAN_ECONOMY)
 						{
-							EconomyBuilding building = new EconomyBuilding(GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), GameObjectFactory.getCashIncrease(mBuildingType));
-							mBattlefield.getPlayerBase().addEconomyBuilding(building);
+							EconomyBuilding building = new EconomyBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), GameObjectFactory.getCashIncrease(mBuildingType));
+							mBattlefield.getPlayerBase().addBuilding(building);
 						}
 						else if(mBuildingType == BuildingType.SPARTAN_POPULATION)
 							mBattlefield.getPlayerBase().increasePopulationBy(GameObjectFactory.getPopulationIncrease(mBuildingType));
 						else
 						{
-							MilitaryBuilding building = new MilitaryBuilding(GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
+							MilitaryBuilding building = new MilitaryBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
 							mBattlefield.getPlayerBase().addMilitaryBuilding(building);
 						}
 					}

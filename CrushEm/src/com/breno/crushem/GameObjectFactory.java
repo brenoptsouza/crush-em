@@ -85,7 +85,7 @@ public class GameObjectFactory
 
 		blueFighter.setHp(50);
 		blueFighter.setVelocity(new Vector2(team == Team.HOME ? 120 : -120, 0));
-		blueFighter.setBoundingBoxPadding(20);
+		blueFighter.setBoundingBoxPadding(40);
 		blueFighter.setOriginX(blueFighter.getWidth() / 2);
 		blueFighter.setOriginY(blueFighter.getHeight() / 2);
 		blueFighter.setTeam(team);
@@ -117,7 +117,7 @@ public class GameObjectFactory
 
 		redFighter.setHp(120);
 		redFighter.setVelocity(new Vector2(team == Team.HOME ? 110 : -110, 0));
-		redFighter.setBoundingBoxPadding(20);
+		redFighter.setBoundingBoxPadding(40);
 		redFighter.setOriginX(redFighter.getWidth() / 2);
 		redFighter.setOriginY(redFighter.getHeight() / 2);
 		redFighter.setTeam(team);

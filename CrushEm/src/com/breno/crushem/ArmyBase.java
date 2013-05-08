@@ -17,6 +17,7 @@ public class ArmyBase
 	Array<Building> mPopulationBuildings;
 	Array<BuildingType> mAvailableTrainedUnits;
 	
+	
 	public ArmyBase(ArmyType armyType, int initialSupportedPopulation, int initialCash)
 	{
 		mSupportedPopulation = initialSupportedPopulation;

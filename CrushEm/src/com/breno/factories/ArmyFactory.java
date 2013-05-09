@@ -1,6 +1,9 @@
-package com.breno.crushem;
+package com.breno.factories;
 
 import com.badlogic.gdx.utils.Array;
+import com.breno.crushem.Army;
+import com.breno.crushem.ArmyType;
+import com.breno.crushem.BuildingType;
 
 /**
  * Classe responsavel por criar os exercitos.

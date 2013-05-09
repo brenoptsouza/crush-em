@@ -28,9 +28,9 @@ import com.badlogic.gdx.utils.Pool;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.EconomyBuilding;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Screens.LevelScreen;
+import com.breno.factories.GameObjectFactory;
 
 public class BaseManagementPanel extends Group
 {

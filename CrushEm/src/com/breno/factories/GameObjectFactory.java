@@ -1,4 +1,4 @@
-package com.breno.crushem;
+package com.breno.factories;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -14,6 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
+import com.breno.crushem.ArmyType;
+import com.breno.crushem.Battlefield;
+import com.breno.crushem.BuildingType;
+import com.breno.crushem.GameObject;
+import com.breno.crushem.Team;
 import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;

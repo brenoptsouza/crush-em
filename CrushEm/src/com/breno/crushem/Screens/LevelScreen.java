@@ -26,13 +26,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.breno.CPUPlayer;
 import com.breno.crushem.Army;
 import com.breno.crushem.ArmyBase;
-import com.breno.crushem.ArmyFactory;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.EconomyBuilding;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MainGame;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
@@ -41,6 +39,8 @@ import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
 import com.breno.crushem.hud.TopBar;
 import com.breno.crushem.hud.TopBar.TopBarInputListener;
+import com.breno.factories.ArmyFactory;
+import com.breno.factories.GameObjectFactory;
 
 public class LevelScreen extends AbstractScreen
 {

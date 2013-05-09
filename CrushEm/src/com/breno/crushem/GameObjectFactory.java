@@ -147,7 +147,7 @@ public class GameObjectFactory
 
 		greenFighter.setHp(320);
 		greenFighter.setVelocity(new Vector2(team == Team.HOME ? 90 : -90, 0));
-		greenFighter.setBoundingBoxPadding(20);
+		greenFighter.setBoundingBoxPadding(40);
 		greenFighter.setOriginX(greenFighter.getWidth() / 2);
 		greenFighter.setOriginY(greenFighter.getHeight() / 2);
 		greenFighter.setTeam(team);

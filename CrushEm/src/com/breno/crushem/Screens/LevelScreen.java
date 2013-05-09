@@ -24,7 +24,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.breno.CPUPlayer;
+import com.breno.crushem.Army;
 import com.breno.crushem.ArmyBase;
+import com.breno.crushem.ArmyFactory;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.EconomyBuilding;
@@ -145,8 +147,11 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		//TODO Get the ArmyBase values from a Level metadata stored somewhere
-		mBattlefield = new Battlefield(new ArmyBase(ArmyType.SPARTAN, 3, 600), new ArmyBase(ArmyType.ZOMBIE, 4, 600));
+		//TODO Breno: Aqui será o ponto de partida para informar o exercito escolhido.
+		Army armyPlayer = ArmyFactory.createSpartanArmy();
+		Army armyCPU = ArmyFactory.createZumbiArmy();
+		
+		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
 		// ends here
 		
 		final MapLayer objectsLayer = mMap.getLayers().get("lanes");

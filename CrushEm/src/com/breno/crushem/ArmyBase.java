@@ -15,17 +15,22 @@ public class ArmyBase
 	Array<Building> mBuildings;
 	Array<MilitaryBuilding> mMilitaryBuildings;
 	
-	public ArmyBase(ArmyType armyType, int initialSupportedPopulation, int initialCash)
-	{
-		mSupportedPopulation = initialSupportedPopulation;
-		mCash = initialCash;
-		mArmy = armyType;
+	/**
+	 * Cria um {@link ArmyBase} atraves do wrapper {@link Army}.
+	 * 
+	 */
+	public ArmyBase(Army army) {
+		
+		mSupportedPopulation = army.getInitialPopulation();
+		mCash = army.getInitialCash();
+		mArmy = army.getArmyType();
 		
 		mBuildings = new Array<Building>();
 		mMilitaryBuildings = new Array<MilitaryBuilding>();
 		
 	}
-	
+
+
 	public void setBattlefield(Battlefield field)
 	{
 		this.mBattlefield = field;

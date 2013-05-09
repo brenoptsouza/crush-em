@@ -68,11 +68,15 @@ public class LevelScreen extends AbstractScreen
 	Rectangle clipBounds = new Rectangle();
 	BaseManagementPanel mManagementPanel;
 	
-	//int LEVEL_WIDTH;
+	ArmyType mHomeArmy;
+	ArmyType mAwayArmy;
 	
-	public LevelScreen(MainGame game)
+	public LevelScreen(MainGame game, ArmyType homeArmy, ArmyType awayArmy)
 	{
 		super(game);
+		
+		mHomeArmy = homeArmy;
+		mAwayArmy = awayArmy;
 	}
 
 	@Override
@@ -147,12 +151,10 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		//TODO Breno: Aqui será o ponto de partida para informar o exercito escolhido.
-		Army armyPlayer = ArmyFactory.createSpartanArmy();
-		Army armyCPU = ArmyFactory.createZumbiArmy();
+		Army armyPlayer = createArmy(mHomeArmy);
+		Army armyCPU = createArmy(mAwayArmy);
 		
 		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
-		// ends here
 		
 		final MapLayer objectsLayer = mMap.getLayers().get("lanes");
 		final MapObjects mapObjects = objectsLayer.getObjects();
@@ -163,6 +165,7 @@ public class LevelScreen extends AbstractScreen
 			mBattlefield.addLane(Integer.parseInt(rectMapObj.getName()), rectMapObj.getRectangle());
 		}
 	}
+
 
 	@Override
 	public void show()
@@ -203,9 +206,9 @@ public class LevelScreen extends AbstractScreen
 	
 	private void addBaseWalls()
 	{
-		//TODO this should be retrieved from some kind of game metadata (maybe pass it through this Screen's constructor
-		final GameObject playerBaseWall = GameObjectFactory.createSpartanBaseWall(Team.HOME, mGame.assetMgr);
-		final GameObject cpuBaseWall = GameObjectFactory.createSpartanBaseWall(Team.AWAY, mGame.assetMgr);
+		final GameObject playerBaseWall = GameObjectFactory.createBaseWall(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWall = GameObjectFactory.createBaseWall(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		
 		mBattlefield.setHomeBaseWall(playerBaseWall);
 		mBattlefield.setAwayBaseWall(cpuBaseWall);
 		cpuBaseWall.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
@@ -242,6 +245,32 @@ public class LevelScreen extends AbstractScreen
 	@Override
 	public void dispose()
 	{
+		
+	}
+	
+	/**
+	 * Cria e retorna o exercito conforme especificado no parametro {@link ArmyType}.
+	 * 
+	 * @param armyType
+	 * @return
+	 */
+	private Army createArmy(ArmyType armyType) {
+		
+		switch(armyType) {
+		
+		case PIRATE:
+			return ArmyFactory.createPirateArmy();
+			
+		case SPARTAN:
+			return ArmyFactory.createSpartanArmy();
+			
+		case ZOMBIE:
+			return ArmyFactory.createZumbiArmy();
+			
+		default:
+			throw new IllegalArgumentException("Type of army not supported yet: " + armyType);
+			
+		}
 		
 	}
 	

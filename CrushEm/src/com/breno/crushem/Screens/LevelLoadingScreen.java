@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
+import com.breno.crushem.ArmyType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.MainGame;
 import com.breno.crushem.GameObjectActions.Die;
@@ -99,7 +100,8 @@ public class LevelLoadingScreen extends AbstractLoadingScreen
 	@Override
 	protected void onFinishLoading()
 	{
-		mGame.setScreen(new LevelScreen(mGame));
+		// TODO: [BRENO] Aqui será o ponto de partida para passar a escolha do exercito
+		mGame.setScreen(new LevelScreen(mGame, ArmyType.SPARTAN, ArmyType.ZOMBIE));
 	}
 
 }

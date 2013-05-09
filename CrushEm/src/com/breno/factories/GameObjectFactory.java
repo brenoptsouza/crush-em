@@ -26,8 +26,24 @@ import com.breno.crushem.GameObjectActions.Run;
 public class GameObjectFactory
 {
 
-	public static GameObject createSpartanBaseWall(Team team, AssetManager assetMgr)
+	public static GameObject createBaseWall(Team team, ArmyType armyType, AssetManager assetMgr)
 	{
+		
+		switch(armyType) {
+		case PIRATE:
+		case ZOMBIE:
+		case SPARTAN:
+			// TODO: Diferenciar as Walls de acordo com o exercito
+			return createSpartanBaseWall(team, assetMgr);
+		
+		}
+		
+		throw new IllegalArgumentException("This army type is not supported yet: " + armyType);
+		
+	}
+
+	private static GameObject createSpartanBaseWall(Team team, AssetManager assetMgr) {
+		
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 
 		final TextureRegion region = atlas.findRegion("spartan-base-fg");
@@ -44,6 +60,7 @@ public class GameObjectFactory
 		spartanBase.setLane(-1);
 
 		return spartanBase;
+		
 	}
 
 	public static GameObject createSpartanBaseWallBg(Team team, AssetManager assetMgr)

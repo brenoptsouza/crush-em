@@ -10,9 +10,9 @@ import com.breno.crushem.ArmyBase;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
+import com.breno.factories.GameObjectFactory;
 
 public class CPUPlayer
 {

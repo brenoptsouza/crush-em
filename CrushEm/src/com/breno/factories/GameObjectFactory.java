@@ -1,7 +1,6 @@
 package com.breno.factories;
 
 import java.util.Comparator;
-import java.util.Iterator;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -63,8 +62,25 @@ public class GameObjectFactory
 		
 	}
 
-	public static GameObject createSpartanBaseWallBg(Team team, AssetManager assetMgr)
+	public static GameObject createBaseWallBg(Team team, ArmyType armyType, AssetManager assetMgr)
 	{
+		
+		switch(armyType) {
+		case PIRATE:
+		case ZOMBIE:
+		case SPARTAN:
+			// TODO: Diferenciar as Walls de acordo com o exercito
+			return createSpartanBaseWallBg(team, assetMgr);
+		
+		}
+		
+		throw new IllegalArgumentException("This army type is not supported yet: " + armyType);
+		
+	}
+
+	private static GameObject createSpartanBaseWallBg(Team team,
+			AssetManager assetMgr) {
+		
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 
 		final TextureRegion region = atlas.findRegion("spartan-base-bg");

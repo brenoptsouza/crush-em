@@ -1,6 +1,11 @@
 package com.breno.factories;
 
-import com.badlogic.gdx.utils.Array;
+import static com.breno.crushem.BuildingType.SPARTAN_BLUE_GUY_FOR_TEST;
+import static com.breno.crushem.BuildingType.SPARTAN_ECONOMY;
+import static com.breno.crushem.BuildingType.SPARTAN_GREEN_GUY_FOR_TEST;
+import static com.breno.crushem.BuildingType.SPARTAN_POPULATION;
+import static com.breno.crushem.BuildingType.SPARTAN_RED_GUY_FOR_TEST;
+
 import com.breno.crushem.Army;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.BuildingType;
@@ -22,12 +27,10 @@ public class ArmyFactory {
 		spartanArmy.setInitialCash(400);
 		spartanArmy.setInitialPopulation(3);
 		
-		Array<BuildingType> buildingsSupported = new Array<BuildingType>();
-		
-		buildingsSupported.add(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
-		buildingsSupported.add(BuildingType.SPARTAN_ECONOMY);
-		buildingsSupported.add(BuildingType.SPARTAN_POPULATION);
-		spartanArmy.setBuildingsSupported(buildingsSupported);
+		spartanArmy.setSupportedBuildings(new BuildingType[] {
+				SPARTAN_BLUE_GUY_FOR_TEST, 
+				SPARTAN_ECONOMY, 
+				SPARTAN_POPULATION});
 		
 		return spartanArmy;
 		
@@ -40,12 +43,10 @@ public class ArmyFactory {
 		zumbiArmy.setInitialCash(300);
 		zumbiArmy.setInitialPopulation(6);
 		
-		Array<BuildingType> buildingsSupported = new Array<BuildingType>();
-		
-		buildingsSupported.add(BuildingType.SPARTAN_GREEN_GUY_FOR_TEST);
-		buildingsSupported.add(BuildingType.SPARTAN_ECONOMY);
-		buildingsSupported.add(BuildingType.SPARTAN_POPULATION);
-		zumbiArmy.setBuildingsSupported(buildingsSupported);
+		zumbiArmy.setSupportedBuildings(new BuildingType[] {
+				SPARTAN_GREEN_GUY_FOR_TEST, 
+				SPARTAN_ECONOMY, 
+				SPARTAN_POPULATION});
 		
 		return zumbiArmy;
 		
@@ -58,12 +59,10 @@ public class ArmyFactory {
 		pirateArmy.setInitialCash(500);
 		pirateArmy.setInitialPopulation(2);
 		
-		Array<BuildingType> buildingsSupported = new Array<BuildingType>();
-		
-		buildingsSupported.add(BuildingType.SPARTAN_RED_GUY_FOR_TEST);
-		buildingsSupported.add(BuildingType.SPARTAN_ECONOMY);
-		buildingsSupported.add(BuildingType.SPARTAN_POPULATION);
-		pirateArmy.setBuildingsSupported(buildingsSupported);
+		pirateArmy.setSupportedBuildings(new BuildingType[] {
+				SPARTAN_RED_GUY_FOR_TEST, 
+				SPARTAN_ECONOMY, 
+				SPARTAN_POPULATION});
 		
 		return pirateArmy;
 		

@@ -261,7 +261,7 @@ public class BaseManagementPanel extends Group
 			addActor(bg);
 			
 			mCells = new Array<BuildingCell>(4);
-			final BuildingType[] types = GameObjectFactory.getFighterTypes(mBattlefield.getPlayerBase().getArmyType());
+			final BuildingType[] types = mBattlefield.getPlayerBase().getBuildingSupported();
 			for(int i = 0 ; i < types.length ; ++i)
 			{
 				final BuildingCell cell = new BuildingCell(types[i], GameObjectFactory.getCostForBuilding(types[i]));

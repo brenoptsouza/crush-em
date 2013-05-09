@@ -12,8 +12,9 @@ public class ArmyBase
 	private Battlefield mBattlefield;
 	private Team mTeam;
 	
-	Array<Building> mBuildings;
-	Array<MilitaryBuilding> mMilitaryBuildings;
+	private Array<Building> mBuildings;
+	private Array<MilitaryBuilding> mMilitaryBuildings;
+	private BuildingType[] mSupportedBuildings;
 	
 	/**
 	 * Cria um {@link ArmyBase} atraves do wrapper {@link Army}.
@@ -24,6 +25,7 @@ public class ArmyBase
 		mSupportedPopulation = army.getInitialPopulation();
 		mCash = army.getInitialCash();
 		mArmy = army.getArmyType();
+		mSupportedBuildings = army.getSupportedBuildings();
 		
 		mBuildings = new Array<Building>();
 		mMilitaryBuildings = new Array<MilitaryBuilding>();
@@ -122,6 +124,11 @@ public class ArmyBase
 
 	public void addMilitaryBuilding(MilitaryBuilding building) {
 		this.mMilitaryBuildings.add(building);
+	}
+	
+	public BuildingType[] getBuildingSupported() {
+		return mSupportedBuildings;
+				
 	}
 	
 }

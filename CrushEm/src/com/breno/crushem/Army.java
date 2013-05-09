@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 public class Army {
 	
 	private ArmyType mArmyType;
-	private Array<BuildingType> mBuildingsSupported;
+	private BuildingType[] mSupportedBuildings;
 	private int mInitialPopulation;
 	private int mInitialCash;
 	
@@ -21,7 +21,7 @@ public class Army {
 	 * 
 	 * @param mArmyType
 	 * 		O identificador do exercito 
-	 * @param mBuildingsSupported
+	 * @param mSupportedBuildings
 	 * 		O tipo de construcoes que o exercito pode construir
 	 * @param mInitialPopulation
 	 * 		A populacao inicial
@@ -33,8 +33,8 @@ public class Army {
 		
 	}
 
-	public Array<BuildingType> getmBuildingsSupported() {
-		return mBuildingsSupported;
+	public BuildingType[] getSupportedBuildings() {
+		return mSupportedBuildings;
 	}
 
 	public int getInitialPopulation() {
@@ -49,8 +49,8 @@ public class Army {
 		return mArmyType;
 	}
 
-	public void setBuildingsSupported(Array<BuildingType> mBuildingsSupported) {
-		this.mBuildingsSupported = mBuildingsSupported;
+	public void setSupportedBuildings(BuildingType[] mBuildingsSupported) {
+		this.mSupportedBuildings = mBuildingsSupported;
 	}
 
 	public void setInitialPopulation(int mInitialPopulation) {

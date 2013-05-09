@@ -213,8 +213,8 @@ public class LevelScreen extends AbstractScreen
 		mBattlefield.setAwayBaseWall(cpuBaseWall);
 		cpuBaseWall.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 	
-		final GameObject playerBaseWallBg = GameObjectFactory.createSpartanBaseWallBg(Team.HOME, mGame.assetMgr);
-		final GameObject cpuBaseWallBg = GameObjectFactory.createSpartanBaseWallBg(Team.AWAY, mGame.assetMgr);
+		final GameObject playerBaseWallBg = GameObjectFactory.createBaseWallBg(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWallBg = GameObjectFactory.createBaseWallBg(Team.AWAY, mAwayArmy, mGame.assetMgr);
 		cpuBaseWallBg.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 
 		mBattlefieldStage.getActors().insert(0, playerBaseWallBg);

@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.breno.crushem.ArmyBase;
+import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
@@ -21,7 +22,7 @@ public class CPUPlayer
 	private Stage mStage;
 	private AssetManager mAssetMgr;
 
-	public CPUPlayer(Battlefield battlefield, Stage stage, AssetManager assetMgr)
+	public CPUPlayer(Battlefield battlefield, Stage stage, ArmyType armyType, AssetManager assetMgr)
 	{
 		this.mBattlefield = battlefield;
 		this.mStage = stage;

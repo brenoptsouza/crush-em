@@ -201,7 +201,7 @@ public class LevelScreen extends AbstractScreen
 		
 		addBaseWalls();
 		
-		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mGame.assetMgr);
+		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mAwayArmy, mGame.assetMgr);
 	}
 	
 	private void addBaseWalls()

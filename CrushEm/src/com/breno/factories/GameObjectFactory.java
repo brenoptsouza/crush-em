@@ -255,20 +255,6 @@ public class GameObjectFactory
 		}
 	}
 
-	public static BuildingType[] getFighterTypes(ArmyType army)
-	{
-		switch (army)
-		{
-		case SPARTAN:
-			return new BuildingType[] { BuildingType.SPARTAN_BLUE_GUY_FOR_TEST, 
-					BuildingType.SPARTAN_RED_GUY_FOR_TEST, 
-					BuildingType.SPARTAN_GREEN_GUY_FOR_TEST,
-					BuildingType.SPARTAN_ECONOMY,
-					BuildingType.SPARTAN_POPULATION};
-		default:
-			return null;
-		}
-	}
 
 	public static TextureRegion getThumbForBuilding(BuildingType buildingType, TextureAtlas atlas)
 	{

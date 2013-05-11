@@ -20,6 +20,32 @@ import com.breno.crushem.BuildingType;
 public class ArmyFactory {
 	
 	
+	/**
+	 * Cria e retorna o exercito conforme especificado no parametro {@link ArmyType}.
+	 * 
+	 * @param armyType
+	 * @return
+	 */
+	public static Army createArmy(ArmyType armyType) {
+		
+		switch(armyType) {
+		
+		case PIRATE:
+			return ArmyFactory.createPirateArmy();
+			
+		case SPARTAN:
+			return ArmyFactory.createSpartanArmy();
+			
+		case ZOMBIE:
+			return ArmyFactory.createZumbiArmy();
+			
+		default:
+			throw new IllegalArgumentException("Type of army not supported yet: " + armyType);
+			
+		}
+		
+	}
+	
 	public static Army createSpartanArmy() {
 		
 		Army spartanArmy = new Army(ArmyType.SPARTAN);

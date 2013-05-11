@@ -151,8 +151,8 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		Army armyPlayer = createArmy(mHomeArmy);
-		Army armyCPU = createArmy(mAwayArmy);
+		Army armyPlayer = ArmyFactory.createArmy(mHomeArmy);
+		Army armyCPU = ArmyFactory.createArmy(mAwayArmy);
 		
 		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
 		
@@ -245,32 +245,6 @@ public class LevelScreen extends AbstractScreen
 	@Override
 	public void dispose()
 	{
-		
-	}
-	
-	/**
-	 * Cria e retorna o exercito conforme especificado no parametro {@link ArmyType}.
-	 * 
-	 * @param armyType
-	 * @return
-	 */
-	private Army createArmy(ArmyType armyType) {
-		
-		switch(armyType) {
-		
-		case PIRATE:
-			return ArmyFactory.createPirateArmy();
-			
-		case SPARTAN:
-			return ArmyFactory.createSpartanArmy();
-			
-		case ZOMBIE:
-			return ArmyFactory.createZumbiArmy();
-			
-		default:
-			throw new IllegalArgumentException("Type of army not supported yet: " + armyType);
-			
-		}
 		
 	}
 	

@@ -12,23 +12,27 @@ public class ArmyBase
 	private Battlefield mBattlefield;
 	private Team mTeam;
 	
-	Array<MilitaryBuilding> mMilitaryBuildings;
-	Array<EconomyBuilding> mEconomyBuildings;
-	Array<Building> mPopulationBuildings;
-	Array<BuildingType> mAvailableTrainedUnits;
+	private Array<Building> mBuildings;
+	private Array<MilitaryBuilding> mMilitaryBuildings;
+	private BuildingType[] mSupportedBuildings;
 	
-	public ArmyBase(ArmyType armyType, int initialSupportedPopulation, int initialCash)
-	{
-		mSupportedPopulation = initialSupportedPopulation;
-		mCash = initialCash;
-		mArmy = armyType;
+	/**
+	 * Cria um {@link ArmyBase} atraves do wrapper {@link Army}.
+	 * 
+	 */
+	public ArmyBase(Army army) {
 		
+		mSupportedPopulation = army.getInitialPopulation();
+		mCash = army.getInitialCash();
+		mArmy = army.getArmyType();
+		mSupportedBuildings = army.getSupportedBuildings();
+		
+		mBuildings = new Array<Building>();
 		mMilitaryBuildings = new Array<MilitaryBuilding>();
-		mEconomyBuildings = new Array<EconomyBuilding>();
-		mPopulationBuildings = new Array<Building>();
-		mAvailableTrainedUnits = new Array<BuildingType>();
+		
 	}
-	
+
+
 	public void setBattlefield(Battlefield field)
 	{
 		this.mBattlefield = field;
@@ -36,36 +40,21 @@ public class ArmyBase
 	
 	public void update(float delta)
 	{
-		final Iterator<EconomyBuilding> i = mEconomyBuildings.iterator();
+		// TODO: Analisar uma maneira de agrupar os buildings (O ArmyBase não precisa saber necessariamente a distinção entre eles...)
+		final Iterator<Building> i = mBuildings.iterator();
 		while(i.hasNext())
 		{
-			final EconomyBuilding economyBuilding = i.next();
-			economyBuilding.update(delta);
-			if(economyBuilding.getProgress() >= economyBuilding.getTotal())
-			{
-				mCash += economyBuilding.getCashIncrement();
-				economyBuilding.setProgress(0);
-			}
+			final Building building = i.next();
+			building.update(delta);
 		}
 		
-		final boolean overPopulation = mBattlefield.getAllFighters(mTeam).size >= mSupportedPopulation;
 		final Iterator<MilitaryBuilding> j = mMilitaryBuildings.iterator();
 		while(j.hasNext())
 		{
-			final MilitaryBuilding militaryBuilding = j.next();
-			if(overPopulation)
-				militaryBuilding.setProgress(0);
-			else
-			{
-				final float previousProgress = militaryBuilding.getProgress();
-				militaryBuilding.update(delta);
-				if(previousProgress < militaryBuilding.getTotal()
-				&& militaryBuilding.getProgress() >= militaryBuilding.getTotal())
-					mAvailableTrainedUnits.add(militaryBuilding.getFighterType());
-			}
+			final Building building = j.next();
+			building.update(delta);
 		}
 		
-		//TODO update the population buildings
 	}
 
 	public int getCash()
@@ -73,47 +62,37 @@ public class ArmyBase
 		return mCash;
 	}
 	
+	public void incrementCash(int cashIncrement){
+		mCash += cashIncrement;
+	}
+	
 	public Array<MilitaryBuilding> getMilitaryBuildings()
 	{
 		return mMilitaryBuildings;
 	}
 	
-	public Array<BuildingType> getAvailableTrainedUnits()
+	public void addBuilding(Building building)
 	{
-		return mAvailableTrainedUnits;
-	}
-
-	public void addEconomyBuilding(EconomyBuilding building)
-	{
-		mEconomyBuildings.add(building);
+		mBuildings.add(building);
 	}
 	
 	public boolean consumeAvailableFighter(BuildingType fighterType)
 	{
-		final boolean removed = mAvailableTrainedUnits.removeValue(fighterType, true);
 		
-		if(removed)
+		// TODO: Deixar com o CPU a mesma forma de iteração como foi feito com o Player
+		final Iterator<MilitaryBuilding> j = mMilitaryBuildings.iterator();
+		while(j.hasNext())
 		{
-			//restart the building count
-			final Iterator<MilitaryBuilding> j = mMilitaryBuildings.iterator();
-			while(j.hasNext())
+			final MilitaryBuilding militaryBuilding = j.next();
+			if(militaryBuilding.isFighterReady())
 			{
-				final MilitaryBuilding militaryBuilding = j.next();
-				if(militaryBuilding.getProgress() >= militaryBuilding.getTotal())
-				{
-					militaryBuilding.setProgress(0);
-					break;
-				}
+				militaryBuilding.getFighter();
+				return true;
 			}
 		}
-		return removed;
+		return false;
 	}
 
-	public void addMilitaryBuilding(MilitaryBuilding militaryBuilding)
-	{
-		mMilitaryBuildings.add(militaryBuilding);
-	}
-	
 	public ArmyType getArmyType()
 	{
 		return mArmy;
@@ -137,6 +116,19 @@ public class ArmyBase
 	public void setTeam(Team team)
 	{
 		mTeam = team;
+	}
+	
+	public boolean isOverPopulation() {
+		return mBattlefield.getAllFighters(mTeam).size >= mSupportedPopulation;
+	}
+
+	public void addMilitaryBuilding(MilitaryBuilding building) {
+		this.mMilitaryBuildings.add(building);
+	}
+	
+	public BuildingType[] getBuildingSupported() {
+		return mSupportedBuildings;
+				
 	}
 	
 }

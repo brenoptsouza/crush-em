@@ -24,13 +24,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.breno.CPUPlayer;
+import com.breno.crushem.Army;
 import com.breno.crushem.ArmyBase;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.EconomyBuilding;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MainGame;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
@@ -39,6 +39,8 @@ import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
 import com.breno.crushem.hud.TopBar;
 import com.breno.crushem.hud.TopBar.TopBarInputListener;
+import com.breno.factories.ArmyFactory;
+import com.breno.factories.GameObjectFactory;
 
 public class LevelScreen extends AbstractScreen
 {
@@ -66,11 +68,15 @@ public class LevelScreen extends AbstractScreen
 	Rectangle clipBounds = new Rectangle();
 	BaseManagementPanel mManagementPanel;
 	
-	//int LEVEL_WIDTH;
+	ArmyType mHomeArmy;
+	ArmyType mAwayArmy;
 	
-	public LevelScreen(MainGame game)
+	public LevelScreen(MainGame game, ArmyType homeArmy, ArmyType awayArmy)
 	{
 		super(game);
+		
+		mHomeArmy = homeArmy;
+		mAwayArmy = awayArmy;
 	}
 
 	@Override
@@ -145,9 +151,10 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		//TODO Get the ArmyBase values from a Level metadata stored somewhere
-		mBattlefield = new Battlefield(new ArmyBase(ArmyType.SPARTAN, 3, 600), new ArmyBase(ArmyType.ZOMBIE, 4, 600));
-		// ends here
+		Army armyPlayer = ArmyFactory.createArmy(mHomeArmy);
+		Army armyCPU = ArmyFactory.createArmy(mAwayArmy);
+		
+		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
 		
 		final MapLayer objectsLayer = mMap.getLayers().get("lanes");
 		final MapObjects mapObjects = objectsLayer.getObjects();
@@ -158,6 +165,7 @@ public class LevelScreen extends AbstractScreen
 			mBattlefield.addLane(Integer.parseInt(rectMapObj.getName()), rectMapObj.getRectangle());
 		}
 	}
+
 
 	@Override
 	public void show()
@@ -193,20 +201,20 @@ public class LevelScreen extends AbstractScreen
 		
 		addBaseWalls();
 		
-		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mGame.assetMgr);
+		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mAwayArmy, mGame.assetMgr);
 	}
 	
 	private void addBaseWalls()
 	{
-		//TODO this should be retrieved from some kind of game metadata (maybe pass it through this Screen's constructor
-		final GameObject playerBaseWall = GameObjectFactory.createSpartanBaseWall(Team.HOME, mGame.assetMgr);
-		final GameObject cpuBaseWall = GameObjectFactory.createSpartanBaseWall(Team.AWAY, mGame.assetMgr);
+		final GameObject playerBaseWall = GameObjectFactory.createBaseWall(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWall = GameObjectFactory.createBaseWall(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		
 		mBattlefield.setHomeBaseWall(playerBaseWall);
 		mBattlefield.setAwayBaseWall(cpuBaseWall);
 		cpuBaseWall.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 	
-		final GameObject playerBaseWallBg = GameObjectFactory.createSpartanBaseWallBg(Team.HOME, mGame.assetMgr);
-		final GameObject cpuBaseWallBg = GameObjectFactory.createSpartanBaseWallBg(Team.AWAY, mGame.assetMgr);
+		final GameObject playerBaseWallBg = GameObjectFactory.createBaseWallBg(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWallBg = GameObjectFactory.createBaseWallBg(Team.AWAY, mAwayArmy, mGame.assetMgr);
 		cpuBaseWallBg.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 
 		mBattlefieldStage.getActors().insert(0, playerBaseWallBg);

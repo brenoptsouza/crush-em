@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.BuildingType;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MilitaryBuilding;
+import com.breno.factories.GameObjectFactory;
 
 public class FighterProgressButton extends Group
 {

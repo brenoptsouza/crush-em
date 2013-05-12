@@ -101,7 +101,11 @@ public class TopBar extends Group
 		final ArmyBase playerBase = mBattlefield.getPlayerBase();
 		mCashLabel.setText(String.valueOf(playerBase.getCash()));
 		mStringBuffer.delete(0, mStringBuffer.length());
-		mStringBuffer.append(mBattlefield.getAllFighters(Team.HOME).size).append("/").append(mBattlefield.getPlayerBase().getPopulationLimit());
+		
+		mStringBuffer.append(mBattlefield.getAllFighters(Team.HOME).size)
+		.append("/")
+		.append(mBattlefield.getPlayerBase().getPopulationLimit());
+		
 		mPopulationLabel.setText(mStringBuffer.toString());
 		final Array<MilitaryBuilding> militaryBuildings = playerBase.getMilitaryBuildings();
 		final Iterator<MilitaryBuilding> i = militaryBuildings.iterator();

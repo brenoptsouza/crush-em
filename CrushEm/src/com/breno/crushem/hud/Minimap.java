@@ -30,7 +30,7 @@ public class Minimap extends Actor
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha)
 	{
-		final float factor = mMapWidth / this.getWidth();
+		float factor = mMapWidth / (this.getWidth());
 		batch.end();
 		
 		mRenderer.setProjectionMatrix(batch.getProjectionMatrix());
@@ -45,6 +45,10 @@ public class Minimap extends Actor
         mRenderer.rect(0, getHeight()/3, getWidth(), getHeight()/3);
         mRenderer.setColor(0, 0, 0, 1);
         mRenderer.rect(0, (getHeight()/3)*2, getWidth(), getHeight()/3);
+        //render the castles
+        mRenderer.setColor(0.5f, 0.9f, 0.5f, 1);
+        mRenderer.rect(0, 0, 50, getHeight());
+        mRenderer.rect(getWidth() - 50, 0, 50, getHeight());
         
         Array<GameObject> allFighters = mBattleField.getAllFighters(null);
         Iterator<GameObject> i = allFighters.iterator();
@@ -56,7 +60,7 @@ public class Minimap extends Actor
         	if(f.getTeam() == Team.HOME)
         	{
         		mRenderer.setColor(0, 0.5f, 1, 1f);
-        		x = (f.getBounds().x + f.getBounds().width) / factor;
+        		x = ((f.getBounds().x)+ f.getBounds().width) / factor;
         		width = -3;
         		x--;
         	}

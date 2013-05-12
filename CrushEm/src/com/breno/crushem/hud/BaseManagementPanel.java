@@ -28,9 +28,9 @@ import com.badlogic.gdx.utils.Pool;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.EconomyBuilding;
-import com.breno.crushem.GameObjectFactory;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Screens.LevelScreen;
+import com.breno.factories.GameObjectFactory;
 
 public class BaseManagementPanel extends Group
 {
@@ -196,14 +196,14 @@ public class BaseManagementPanel extends Group
 						mBattlefield.getPlayerBase().spendCash(cost);
 						if(mBuildingType == BuildingType.SPARTAN_ECONOMY)
 						{
-							EconomyBuilding building = new EconomyBuilding(GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), GameObjectFactory.getCashIncrease(mBuildingType));
-							mBattlefield.getPlayerBase().addEconomyBuilding(building);
+							EconomyBuilding building = new EconomyBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), GameObjectFactory.getCashIncrease(mBuildingType));
+							mBattlefield.getPlayerBase().addBuilding(building);
 						}
 						else if(mBuildingType == BuildingType.SPARTAN_POPULATION)
 							mBattlefield.getPlayerBase().increasePopulationBy(GameObjectFactory.getPopulationIncrease(mBuildingType));
 						else
 						{
-							MilitaryBuilding building = new MilitaryBuilding(GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
+							MilitaryBuilding building = new MilitaryBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
 							mBattlefield.getPlayerBase().addMilitaryBuilding(building);
 						}
 					}
@@ -261,7 +261,7 @@ public class BaseManagementPanel extends Group
 			addActor(bg);
 			
 			mCells = new Array<BuildingCell>(4);
-			final BuildingType[] types = GameObjectFactory.getFighterTypes(mBattlefield.getPlayerBase().getArmyType());
+			final BuildingType[] types = mBattlefield.getPlayerBase().getBuildingSupported();
 			for(int i = 0 ; i < types.length ; ++i)
 			{
 				final BuildingCell cell = new BuildingCell(types[i], GameObjectFactory.getCostForBuilding(types[i]));

@@ -1,11 +1,14 @@
 package com.breno.crushem.Screens;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.primitives.MutableFloat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -18,11 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.breno.crushem.ArmyType;
 import com.breno.crushem.MainGame;
 
 public class ArmySelectionScreen extends AbstractScreen
@@ -33,8 +39,9 @@ public class ArmySelectionScreen extends AbstractScreen
 	private Button mLeftButton;
 	private Button mRightButton;
 	private PagedScrollPane mScroll;
-	private Array<Image> mArmyCells;
+	private Array<Button> mArmyCells;
 	private Array<TextureRegion> mArmyRibbons;
+	private Array<String> mArmyDescriptions;
 	private Image mRibbon;
 	private Image mShadow;
 	private Group mWidget;
@@ -48,7 +55,7 @@ public class ArmySelectionScreen extends AbstractScreen
 	@Override
 	public void render(float delta)
 	{
-		Gdx.gl.glClearColor(218f/255f, 184f/255f, 131f/255f, 1);
+		Gdx.gl.glClearColor(226f/255f, 206f/255f, 163f/255f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		mStage.act();
@@ -59,7 +66,7 @@ public class ArmySelectionScreen extends AbstractScreen
 	public void resize(int width, int height)
 	{
 		mStage.setViewport(1280, 720, true);
-		mScroll.setY(720 / 2 - mScroll.getHeight() / 2);
+		mScroll.setY(720 / 2 - mScroll.getHeight() / 2 + 90);
 
 		mLeftButton.setY(720/2 - mLeftButton.getHeight()/2);
 		mLeftButton.setX(170);
@@ -68,38 +75,50 @@ public class ArmySelectionScreen extends AbstractScreen
 		mRightButton.setX(1280 - mRightButton.getWidth() - 170);
 		
 		mRibbon.setX(1280/2 - mRibbon.getWidth()/2);
-		mRibbon.setY(80);
+		mRibbon.setY(155);
 		mShadow.setX(1280/2 - mShadow.getWidth()/2);
 		mShadow.setY(mRibbon.getY() - 50);
 		
 		mScreenTitle.setX(1280/2 - mScreenTitle.getWidth()/2);
 		mScreenTitle.setY(720 - mScreenTitle.getHeight());
+		
+		mArmyDescription.setWidth(width - 120);
+		mArmyDescription.setX(60);
+		mArmyDescription.setHeight(170);
+		
 	}
-
-	private void updateRibbon()
+	
+	private void animateRibbonUp()
 	{
 		final Action action = 
 				Actions.sequence(
 						Actions.parallel(
-							Actions.moveBy(0, 25, 0.3f,Interpolation.exp5Out),
-							Actions.fadeOut(0.3f,Interpolation.exp5Out)),
-						Actions.run(updateRibbonTexture),
-						Actions.delay(0.7f),
-						Actions.parallel(
-								Actions.moveBy(0, -25, 0.2f,Interpolation.exp5Out),
-								Actions.fadeIn(0.2f, Interpolation.exp5Out)));
+							Actions.moveTo(mRibbon.getX(), 180, 0.2f,Interpolation.exp5Out),
+							Actions.fadeOut(0.2f,Interpolation.exp5Out)));
+		mRibbon.clearActions();
 		mRibbon.addAction(action);
+		mShadow.clearActions();
+		mShadow.addAction(Actions.fadeOut(0.2f, Interpolation.exp5Out));
+		mArmyDescription.clearActions();
+		mArmyDescription.addAction(Actions.fadeOut(0.2f, Interpolation.exp5Out));
 	}
 	
-	Runnable updateRibbonTexture = new Runnable()
+	private void animateRibbonDown()
 	{
-		@Override
-		public void run()
-		{
-			final TextureRegion newRegion = mArmyRibbons.get(mScroll.mCurrentPage);
-			((TextureRegionDrawable)mRibbon.getDrawable()).setRegion(newRegion);
-		}
-	};
+		mArmyDescription.setText(mArmyDescriptions.get(mScroll.mCurrentPage));
+		final TextureRegion newRegion = mArmyRibbons.get(mScroll.mCurrentPage);
+		((TextureRegionDrawable)mRibbon.getDrawable()).setRegion(newRegion);
+		final Action action = 
+				Actions.parallel(
+						Actions.moveTo(mRibbon.getX(), 155, 0.3f,Interpolation.exp5Out),
+						Actions.fadeIn(0.3f, Interpolation.exp5Out));
+		mRibbon.clearActions();
+		mRibbon.addAction(action);
+		mShadow.clearActions();
+		mShadow.addAction(Actions.alpha(0.2f, 0.3f, Interpolation.exp5Out));
+		mArmyDescription.clearActions();
+		mArmyDescription.addAction(Actions.fadeIn(0.3f, Interpolation.exp5Out));
+	}
 	
 	@Override
 	public void show()
@@ -113,9 +132,9 @@ public class ArmySelectionScreen extends AbstractScreen
 		mArmyCells = getArmyImages();
 		for(int i = 0 ; i < mArmyCells.size ; ++i)
 		{
-			final Image img = mArmyCells.get(i);
-			mWidget.addActor(img);
-			img.setX(500 + i*img.getWidth() + i*500);
+			final Button btn = mArmyCells.get(i);
+			mWidget.addActor(btn);
+			btn.setX(500 + i*btn.getWidth() + i*500);
 		}
 		mWidget.setWidth(mArmyCells.peek().getRight() + 500);
 		mWidget.setHeight(mArmyCells.get(0).getHeight());
@@ -126,9 +145,25 @@ public class ArmySelectionScreen extends AbstractScreen
 		mShadow.setColor(1,1,1,0.2f);
 		mScreenTitle = new Image(atlas.findRegion("choose-army-title"));
 		
+		
+		mArmyDescriptions = getArmyDescriptions();
+		final LabelStyle labelStyle = new LabelStyle();
+		labelStyle.font = mGame.assetMgr.get("data/fonts/charlemagne.fnt", BitmapFont.class);
+		mArmyDescription = new Label(mArmyDescriptions.get(0), labelStyle);
+		mArmyDescription.setWrap(true);
+		
 		mScroll = new PagedScrollPane(mWidget);
 		mScroll.setHeight(mWidget.getHeight());
 		mScroll.setWidth(1280);
+		mScroll.addListener(new ActorGestureListener()
+		{
+			@Override
+			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY)
+			{
+				animateRibbonUp();
+				super.pan(event, x, y, deltaX, deltaY);
+			}
+		});
 		
 		final ButtonStyle styleLeft = new ButtonStyle();
 		styleLeft.up = new TextureRegionDrawable(atlas.findRegion("double-arrows-left"));
@@ -148,7 +183,6 @@ public class ArmySelectionScreen extends AbstractScreen
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
 			{
 				mScroll.moveLeft();
-				updateRibbon();
 			}
 		});
 		
@@ -170,7 +204,6 @@ public class ArmySelectionScreen extends AbstractScreen
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
 			{
 				mScroll.moveRight();
-				updateRibbon();
 			}
 		});
 
@@ -178,25 +211,53 @@ public class ArmySelectionScreen extends AbstractScreen
 		mStage.addActor(mScroll);
 		mStage.addActor(mLeftButton);
 		mStage.addActor(mRightButton);
+		mStage.addActor(mArmyDescription);
 		mStage.addActor(mShadow);
 		mStage.addActor(mRibbon);
 
 		Gdx.input.setInputProcessor(mStage);
 	}
 
+	private Array<String> getArmyDescriptions()
+	{
+		final Array<String> result = new Array<String>(3);
+		result.add("Pirates have medium strengh units that have the abiliy to steal money from the enemy.");
+		result.add("Zombies are normaly weak, but can be trained in high numbers. They also have abilities like 'Revive' or 'Infect'.");
+		result.add("Spartan buildings are expensive, but the trained units are very strong and can take lots of damage.");
+		return result;
+	}
+
 	//TODO Get this data from a factory or something like that
-	private Array<Image> getArmyImages()
+	private Array<Button> getArmyImages()
 	{
 		final TextureAtlas atlas = mGame.assetMgr.get("data/menu_screen.atlas");
 
-		Image i1 = new Image(atlas.findRegion("army-select-pirates"));
-		Image i2 = new Image(atlas.findRegion("army-select-zombies"));
-		Image i3 = new Image(atlas.findRegion("army-select-spartans"));
-
-		final Array<Image> result = new Array<Image>(3);
-		result.add(i1);
-		result.add(i2);
-		result.add(i3);
+		final ButtonStyle style1 = new ButtonStyle();
+		style1.up = new TextureRegionDrawable (atlas.findRegion("army-select-pirates"));
+		style1.down = new TextureRegionDrawable (atlas.findRegion("army-select-pirates-down"));
+		
+		final ButtonStyle style2 = new ButtonStyle();
+		style2.up = new TextureRegionDrawable (atlas.findRegion("army-select-zombies"));
+		style2.down = new TextureRegionDrawable (atlas.findRegion("army-select-zombies-down"));
+		
+		final ButtonStyle style3 = new ButtonStyle();
+		style3.up = new TextureRegionDrawable (atlas.findRegion("army-select-spartans"));
+		style3.down = new TextureRegionDrawable (atlas.findRegion("army-select-spartans-down"));
+		
+		final Array<Button> result = new Array<Button>(3);
+		
+		final Button b1 = new Button(style1);
+		b1.addListener(new ArmyButtonInputListener(ArmyType.PIRATE));
+		
+		final Button b2 = new Button(style2);
+		b2.addListener(new ArmyButtonInputListener(ArmyType.ZOMBIE));
+		
+		final Button b3 = new Button(style3);
+		b3.addListener(new ArmyButtonInputListener(ArmyType.SPARTAN));
+		
+		result.add(b1);
+		result.add(b2);
+		result.add(b3);
 		
 		return result;
 	}
@@ -212,6 +273,22 @@ public class ArmySelectionScreen extends AbstractScreen
 		result.add(atlas.findRegion("ribbon-spartans"));
 		
 		return result;
+	}
+	
+	private class ArmyButtonInputListener extends ActorGestureListener
+	{
+		private ArmyType mArmy;
+		
+		private ArmyButtonInputListener(ArmyType army)
+		{
+			mArmy = army;
+		}
+		
+		@Override
+		public void tap(InputEvent event, float x, float y, int count, int button)
+		{
+			mGame.setScreen(new LevelLoadingScreen(mGame, mArmy, ArmyType.ZOMBIE));
+		}
 	}
 
 	@Override
@@ -265,14 +342,13 @@ public class ArmySelectionScreen extends AbstractScreen
 		{
 			if(mCurrentPage < mArmyCells.size - 1)
 			{
-				Image cell = mArmyCells.get(mCurrentPage + 1);
+				Button cell = mArmyCells.get(mCurrentPage + 1);
 				float target = cell.getX() + cell.getWidth() / 2f;
 				mCurrentPage++;
 				final float a = target - getWidth() / 2f;
 				
-				mTween.free();
-				mFloat.setValue(getScrollX());
-				mTween = Tween.to(mFloat, 0, 0.8f).target(a).ease(TweenEquations.easeOutBack).start();
+				setTweenValues(a);
+				animateRibbonUp();
 			}
 		}
 		
@@ -280,14 +356,13 @@ public class ArmySelectionScreen extends AbstractScreen
 		{
 			if(mCurrentPage > 0)
 			{
-				Image cell = mArmyCells.get(mCurrentPage - 1);
+				Button cell = mArmyCells.get(mCurrentPage - 1);
 				float target = cell.getX() + cell.getWidth() / 2f;
 				mCurrentPage--;
 				final float a = target - getWidth() / 2f;
 				
-				mTween.free();
-				mFloat.setValue(getScrollX());
-				mTween = Tween.to(mFloat, 0, 0.8f).target(a).ease(TweenEquations.easeOutBack).start();
+				setTweenValues(a);
+				animateRibbonUp();
 			}
 		}
 
@@ -302,7 +377,7 @@ public class ArmySelectionScreen extends AbstractScreen
 				int nextPageIndex = getVelocityX() > 0 ? mCurrentPage - 1 : mCurrentPage + 1;
 				if(nextPageIndex >= 0 && nextPageIndex < mArmyCells.size)
 				{
-					Image cell = mArmyCells.get(nextPageIndex);
+					Button cell = mArmyCells.get(nextPageIndex);
 					float target = cell.getX() + cell.getWidth() / 2f;
 					mCurrentPage = nextPageIndex;
 					return target - width / 2f;
@@ -315,7 +390,7 @@ public class ArmySelectionScreen extends AbstractScreen
 			int newPage = Integer.MAX_VALUE;
 			for (int i = 0, n = mArmyCells.size; i < n; ++i)
 			{
-				Image cell = mArmyCells.get(i);
+				Button cell = mArmyCells.get(i);
 				float target = cell.getX() + cell.getWidth() / 2f;
 				float distance = Math.abs(target - current);
 				if (distance >= bestDistance)
@@ -327,6 +402,27 @@ public class ArmySelectionScreen extends AbstractScreen
 			mCurrentPage = newPage;
 			return bestTarget - width / 2f;
 		}
+		
+		TweenCallback animFinished = new TweenCallback()
+		{
+			
+			@Override
+			public void onEvent(int type, BaseTween<?> source)
+			{
+				System.out.println("type: " + type );
+				if(type == TweenCallback.COMPLETE)
+					animateRibbonDown();
+			}
+		};
+		
+		private void setTweenValues(float targtetValue)
+		{
+			mTween.free();
+			mFloat.setValue(getScrollX());
+			mTween = Tween.to(mFloat, 0, 0.8f).target(targtetValue).ease(TweenEquations.easeOutBack).start();
+			mTween.setCallback(animFinished);
+		}
+		
 		
 		@Override
 		public void act(float delta)
@@ -340,9 +436,7 @@ public class ArmySelectionScreen extends AbstractScreen
 			{
 				if(mTween.isPaused())
 				{
-					mTween.free();
-					mFloat.setValue(getScrollX());
-					mTween = Tween.to(mFloat, 0, 0.8f).target(nearest()).ease(TweenEquations.easeOutBack).start();
+					setTweenValues(nearest());
 					setVelocityX(0);
 				}
 

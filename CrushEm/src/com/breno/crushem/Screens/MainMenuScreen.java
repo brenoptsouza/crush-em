@@ -129,7 +129,8 @@ public class MainMenuScreen extends AbstractScreen
 			
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) 
 			{
-				mGame.setScreen(new LevelLoadingScreen(mGame));
+				//mGame.setScreen(new LevelLoadingScreen(mGame));
+				mGame.setScreen(new ArmySelectionScreen(mGame));
 			};
 		}
 		);

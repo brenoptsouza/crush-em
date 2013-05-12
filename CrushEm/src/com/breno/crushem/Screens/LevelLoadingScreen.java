@@ -23,9 +23,14 @@ import com.breno.crushem.GameObjectActions.Run;
 public class LevelLoadingScreen extends AbstractLoadingScreen
 {
 
-	public LevelLoadingScreen(MainGame game)
+	private ArmyType mPlayerArmy;
+	private ArmyType mEnemyArmy;
+	
+	public LevelLoadingScreen(MainGame game, ArmyType player, ArmyType enemy)
 	{
 		super(game);
+		mPlayerArmy = player;
+		mEnemyArmy = enemy;
 	}
 
 	@Override
@@ -100,8 +105,7 @@ public class LevelLoadingScreen extends AbstractLoadingScreen
 	@Override
 	protected void onFinishLoading()
 	{
-		// TODO: [BRENO] Aqui será o ponto de partida para passar a escolha do exercito
-		mGame.setScreen(new LevelScreen(mGame, ArmyType.SPARTAN, ArmyType.ZOMBIE));
+		mGame.setScreen(new LevelScreen(mGame, mPlayerArmy, mEnemyArmy));
 	}
 
 }

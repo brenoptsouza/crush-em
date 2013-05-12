@@ -5,9 +5,9 @@ public class EconomyBuilding extends Building
 
 	private int mCashIncrement;
 	
-	public EconomyBuilding(float total, int cashIncrement)
+	public EconomyBuilding(ArmyBase armyBase, float total, int cashIncrement)
 	{
-		super(BuildingSuperType.ECONOMIY, total);
+		super(BuildingSuperType.ECONOMIY, armyBase, total);
 		mCashIncrement = cashIncrement;
 	}
 
@@ -21,6 +21,13 @@ public class EconomyBuilding extends Building
 		this.mCashIncrement = cashIncrement;
 	}
 	
+	
+	@Override
+	protected void enableAction() {
+		this.mArmyBase.incrementCash(mCashIncrement);
+		this.setProgress(BEGGINING_PROGRESS);
+		
+	}
 	
 
 }

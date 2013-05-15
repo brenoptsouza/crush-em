@@ -18,29 +18,23 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.breno.CPUPlayer;
-import com.breno.crushem.Army;
 import com.breno.crushem.ArmyBase;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
-import com.breno.crushem.EconomyBuilding;
-import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.MainGame;
-import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
+import com.breno.crushem.bean.Army;
 import com.breno.crushem.hud.BaseManagementPanel;
 import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
 import com.breno.crushem.hud.TopBar;
 import com.breno.crushem.hud.TopBar.TopBarInputListener;
-import com.breno.factories.ArmyFactory;
-import com.breno.factories.GameObjectFactory;
+import com.breno.factories.GameFactory;
 
 public class LevelScreen extends AbstractScreen
 {
@@ -151,8 +145,8 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		Army armyPlayer = ArmyFactory.createArmy(mHomeArmy);
-		Army armyCPU = ArmyFactory.createArmy(mAwayArmy);
+		Army armyPlayer = GameFactory.createArmy(mHomeArmy);
+		Army armyCPU = GameFactory.createArmy(mAwayArmy);
 		
 		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
 		
@@ -206,15 +200,15 @@ public class LevelScreen extends AbstractScreen
 	
 	private void addBaseWalls()
 	{
-		final GameObject playerBaseWall = GameObjectFactory.createBaseWall(Team.HOME, mHomeArmy, mGame.assetMgr);
-		final GameObject cpuBaseWall = GameObjectFactory.createBaseWall(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		final GameObject playerBaseWall = GameFactory.createBaseWall(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWall = GameFactory.createBaseWall(Team.AWAY, mAwayArmy, mGame.assetMgr);
 		
 		mBattlefield.setHomeBaseWall(playerBaseWall);
 		mBattlefield.setAwayBaseWall(cpuBaseWall);
 		cpuBaseWall.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 	
-		final GameObject playerBaseWallBg = GameObjectFactory.createBaseWallBg(Team.HOME, mHomeArmy, mGame.assetMgr);
-		final GameObject cpuBaseWallBg = GameObjectFactory.createBaseWallBg(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		final GameObject playerBaseWallBg = GameFactory.createBaseWallBg(Team.HOME, mHomeArmy, mGame.assetMgr);
+		final GameObject cpuBaseWallBg = GameFactory.createBaseWallBg(Team.AWAY, mAwayArmy, mGame.assetMgr);
 		cpuBaseWallBg.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 
 		mBattlefieldStage.getActors().insert(0, playerBaseWallBg);
@@ -335,7 +329,7 @@ public class LevelScreen extends AbstractScreen
 		public void touchDownFighter(float x, float y, FighterProgressButton button)
 		{
 			System.out.println("TOP BAR BUTTON");
-			mFighter = GameObjectFactory.createFighter(button.fighterType, Team.HOME, mGame.assetMgr);
+			mFighter = GameFactory.createFighter(button.fighterType, Team.HOME, mGame.assetMgr);
 			mFighterGhost.setDrawable(mFighter.getDrawable());
 			mFighterGhost.setColor(1, 1, 1, 0.6f);
 			
@@ -393,7 +387,7 @@ public class LevelScreen extends AbstractScreen
 			{
 				mFighter.setScale(mCurrentScaleFac);
 				mFighter.getVelocity().scl(mCurrentScaleFac);
-				GameObjectFactory.spawnGameObject(mFighter, mCurrentLane, /*-mFighter.getWidth()*/0, (7 + mCurrentRectangle.y) + mRandom.nextInt((int)mCurrentRectangle.height-29), mBattlefieldStage, mBattlefield);
+				GameFactory.spawnGameObject(mFighter, mCurrentLane, /*-mFighter.getWidth()*/0, (7 + mCurrentRectangle.y) + mRandom.nextInt((int)mCurrentRectangle.height-29), mBattlefieldStage, mBattlefield);
 				fighterButton.popFighter();
 			}
 		}

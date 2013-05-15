@@ -30,7 +30,7 @@ import com.breno.crushem.BuildingType;
 import com.breno.crushem.EconomyBuilding;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Screens.LevelScreen;
-import com.breno.factories.GameObjectFactory;
+import com.breno.factories.GameFactory;
 
 public class BaseManagementPanel extends Group
 {
@@ -102,7 +102,7 @@ public class BaseManagementPanel extends Group
 	
 	private void onBuildingSelected(BuildingCell cell)
 	{
-		mDescPanel.setContent(GameObjectFactory.getDescriptionForBuilding(cell.getBuildingType()), cell.getThumb(), cell.getBuildingType());
+		mDescPanel.setContent(GameFactory.getDescriptionForBuilding(cell.getBuildingType()), cell.getThumb(), cell.getBuildingType());
 	}
 	
 	public void animateOut()
@@ -190,20 +190,20 @@ public class BaseManagementPanel extends Group
 				@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button)
 				{
-					final int cost = GameObjectFactory.getCostForBuilding(mBuildingType);
+					final int cost = GameFactory.getCostForBuilding(mBuildingType);
 					if(mBattlefield.getPlayerBase().getCash() >= cost)
 					{
 						mBattlefield.getPlayerBase().spendCash(cost);
 						if(mBuildingType == BuildingType.SPARTAN_ECONOMY)
 						{
-							EconomyBuilding building = new EconomyBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), GameObjectFactory.getCashIncrease(mBuildingType));
+							EconomyBuilding building = new EconomyBuilding(mBattlefield.getPlayerBase(), GameFactory.getTrainingTimeForBuilding(mBuildingType), GameFactory.getCashIncrease(mBuildingType));
 							mBattlefield.getPlayerBase().addBuilding(building);
 						}
 						else if(mBuildingType == BuildingType.SPARTAN_POPULATION)
-							mBattlefield.getPlayerBase().increasePopulationBy(GameObjectFactory.getPopulationIncrease(mBuildingType));
+							mBattlefield.getPlayerBase().increasePopulationBy(GameFactory.getPopulationIncrease(mBuildingType));
 						else
 						{
-							MilitaryBuilding building = new MilitaryBuilding(mBattlefield.getPlayerBase(), GameObjectFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
+							MilitaryBuilding building = new MilitaryBuilding(mBattlefield.getPlayerBase(), GameFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
 							mBattlefield.getPlayerBase().addMilitaryBuilding(building);
 						}
 					}
@@ -214,7 +214,7 @@ public class BaseManagementPanel extends Group
 		public void setContent(String text, TextureRegionDrawable thumb, BuildingType buildingType)
 		{
 			mBuildingType = buildingType;
-			final int cost = GameObjectFactory.getCostForBuilding(buildingType);
+			final int cost = GameFactory.getCostForBuilding(buildingType);
 			mThumb.setDrawable(thumb);
 			mThumb.setWidth(thumb.getRegion().getRegionWidth());
 			mThumb.setHeight(thumb.getRegion().getRegionHeight());
@@ -234,7 +234,7 @@ public class BaseManagementPanel extends Group
 		public void act(float delta)
 		{
 			if(mBuildingType != null)
-				mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < GameObjectFactory.getCostForBuilding(mBuildingType));
+				mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < GameFactory.getCostForBuilding(mBuildingType));
 			super.act(delta);
 		}
 	}
@@ -264,7 +264,7 @@ public class BaseManagementPanel extends Group
 			final BuildingType[] types = mBattlefield.getPlayerBase().getBuildingSupported();
 			for(int i = 0 ; i < types.length ; ++i)
 			{
-				final BuildingCell cell = new BuildingCell(types[i], GameObjectFactory.getCostForBuilding(types[i]));
+				final BuildingCell cell = new BuildingCell(types[i], GameFactory.getCostForBuilding(types[i]));
 				cell.setX((i+1)*15 + i * cell.getWidth());
 				cell.setY(20);
 				addActor(cell);
@@ -353,7 +353,7 @@ public class BaseManagementPanel extends Group
 			
 			mCost = cost;
 			mBg = new Image(atlas.createPatch("thumb-portrait"));
-			final Image thumb = new Image(GameObjectFactory.getThumbForBuilding(type, atlas));
+			final Image thumb = new Image(GameFactory.getThumbForBuilding(type, atlas));
 			mThumb = thumb;
 			mType = type;
 			final Image coins = new Image(atlas.findRegion("coins"));

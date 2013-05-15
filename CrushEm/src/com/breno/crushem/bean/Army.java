@@ -1,6 +1,8 @@
-package com.breno.crushem;
+package com.breno.crushem.bean;
 
 import com.badlogic.gdx.utils.Array;
+import com.breno.crushem.ArmyType;
+import com.breno.crushem.BuildingType;
 
 /**
  * Classe que agrupa os dados especificos de um exercito.

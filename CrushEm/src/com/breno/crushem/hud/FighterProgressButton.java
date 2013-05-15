@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.MilitaryBuilding;
-import com.breno.factories.GameObjectFactory;
+import com.breno.factories.GameFactory;
 
 public class FighterProgressButton extends Group
 {
@@ -80,7 +80,7 @@ public class FighterProgressButton extends Group
 	{
 		final TextureAtlas atlas = mAtlas;
 		
-		final FighterButtonCell cell = new FighterButtonCell(GameObjectFactory.getThumbForBuilding(fighterType, mAtlas),
+		final FighterButtonCell cell = new FighterButtonCell(GameFactory.getThumbForBuilding(fighterType, mAtlas),
 				atlas.createPatch("thumb-portrait"), atlas.findRegion("fighter-progress"), MARGIN);
 
 		mCells.add(cell);

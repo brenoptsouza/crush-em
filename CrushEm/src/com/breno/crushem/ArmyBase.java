@@ -3,6 +3,7 @@ package com.breno.crushem;
 import java.util.Iterator;
 
 import com.badlogic.gdx.utils.Array;
+import com.breno.crushem.bean.Army;
 
 public class ArmyBase
 {

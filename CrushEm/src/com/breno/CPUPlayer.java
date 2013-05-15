@@ -13,7 +13,7 @@ import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
-import com.breno.factories.GameObjectFactory;
+import com.breno.factories.GameFactory;
 
 public class CPUPlayer
 {
@@ -44,9 +44,9 @@ public class CPUPlayer
 		{
 			final int lane = mRandom.nextInt(mBattlefield.getNumberOfLanes());
 			final Rectangle laneBounds = mBattlefield.getLaneBounds(lane);
-			final GameObject fighter = GameObjectFactory.createFighter(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST, 
+			final GameObject fighter = GameFactory.createFighter(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST, 
 					Team.AWAY, mAssetMgr);
-			GameObjectFactory.spawnGameObject(fighter, lane, mBattlefield.getLevelWidth(), (7 + laneBounds.y) + mRandom.nextInt((int) laneBounds.height - 29), mStage, mBattlefield);
+			GameFactory.spawnGameObject(fighter, lane, mBattlefield.getLevelWidth(), (7 + laneBounds.y) + mRandom.nextInt((int) laneBounds.height - 29), mStage, mBattlefield);
 		}
 	}
 

@@ -13,24 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.breno.crushem.Battlefield;
-import com.breno.crushem.BuildingType;
 import com.breno.crushem.EconomyBuilding;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Screens.LevelScreen;
-import com.breno.factories.GameFactory;
+import com.breno.crushem.bean.BuildingBean;
+import com.breno.crushem.bean.EconomyBuildingBean;
+import com.breno.crushem.bean.MilitaryBuildingBean;
+import com.breno.crushem.bean.PopulationBuildingBean;
 
 public class BaseManagementPanel extends Group
 {
@@ -102,7 +100,7 @@ public class BaseManagementPanel extends Group
 	
 	private void onBuildingSelected(BuildingCell cell)
 	{
-		mDescPanel.setContent(GameFactory.getDescriptionForBuilding(cell.getBuildingType()), cell.getThumb(), cell.getBuildingType());
+		mDescPanel.setContent(cell.getThumb(), cell.getBuildingBean());
 	}
 	
 	public void animateOut()
@@ -139,7 +137,7 @@ public class BaseManagementPanel extends Group
 		private Label mDescription;
 		private Image mThumb;
 		private Button mBuildButton;
-		private BuildingType mBuildingType;
+		private BuildingBean mBuildingBean;
 		
 		public DescriptionPanel()
 		{
@@ -190,38 +188,44 @@ public class BaseManagementPanel extends Group
 				@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button)
 				{
-					final int cost = GameFactory.getCostForBuilding(mBuildingType);
+					final int cost = mBuildingBean.getCostForBuilding();
 					if(mBattlefield.getPlayerBase().getCash() >= cost)
 					{
 						mBattlefield.getPlayerBase().spendCash(cost);
-						if(mBuildingType == BuildingType.SPARTAN_ECONOMY)
-						{
-							EconomyBuilding building = new EconomyBuilding(mBattlefield.getPlayerBase(), GameFactory.getTrainingTimeForBuilding(mBuildingType), GameFactory.getCashIncrease(mBuildingType));
-							mBattlefield.getPlayerBase().addBuilding(building);
-						}
-						else if(mBuildingType == BuildingType.SPARTAN_POPULATION)
-							mBattlefield.getPlayerBase().increasePopulationBy(GameFactory.getPopulationIncrease(mBuildingType));
-						else
-						{
-							MilitaryBuilding building = new MilitaryBuilding(mBattlefield.getPlayerBase(), GameFactory.getTrainingTimeForBuilding(mBuildingType), mBuildingType);
-							mBattlefield.getPlayerBase().addMilitaryBuilding(building);
+						
+						switch(mBuildingBean.getSuperType()){
+						
+						case ECONOMIY:
+							EconomyBuilding economyBuilding = new EconomyBuilding((EconomyBuildingBean) mBuildingBean);
+							mBattlefield.getPlayerBase().addBuilding(economyBuilding);
+							break;
+						
+						case MILITARY:
+							MilitaryBuilding militaryBuilding = new MilitaryBuilding((MilitaryBuildingBean) mBuildingBean);
+							mBattlefield.getPlayerBase().addMilitaryBuilding(militaryBuilding);
+							break;
+						
+						case POPULATION:
+							mBattlefield.getPlayerBase().increasePopulationBy(((PopulationBuildingBean) mBuildingBean).getPopulationIncrement());
+							break;
+						
 						}
 					}
 				}
 			});
 		}
 		
-		public void setContent(String text, TextureRegionDrawable thumb, BuildingType buildingType)
+		public void setContent(TextureRegionDrawable thumb, BuildingBean buildingBean)
 		{
-			mBuildingType = buildingType;
-			final int cost = GameFactory.getCostForBuilding(buildingType);
+			mBuildingBean = buildingBean;
+			final int cost = buildingBean.getCostForBuilding();
 			mThumb.setDrawable(thumb);
 			mThumb.setWidth(thumb.getRegion().getRegionWidth());
 			mThumb.setHeight(thumb.getRegion().getRegionHeight());
 			mThumb.setX(15);
 			mThumb.setY(getHeight() - mThumb.getHeight() - 15);
 			mDescription.setWrap(true);
-			mDescription.setText(text);
+			mDescription.setText(buildingBean.getDescription());
 			mDescription.setX(15);
 			mDescription.setY(mThumb.getY() - mDescription.getHeight());
 			mDescription.setAlignment(Align.left | Align.top);
@@ -233,8 +237,7 @@ public class BaseManagementPanel extends Group
 		@Override
 		public void act(float delta)
 		{
-			if(mBuildingType != null)
-				mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < GameFactory.getCostForBuilding(mBuildingType));
+//			mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < mBuildingBean.getCostForBuilding());
 			super.act(delta);
 		}
 	}
@@ -261,10 +264,10 @@ public class BaseManagementPanel extends Group
 			addActor(bg);
 			
 			mCells = new Array<BuildingCell>(4);
-			final BuildingType[] types = mBattlefield.getPlayerBase().getBuildingSupported();
-			for(int i = 0 ; i < types.length ; ++i)
+			final BuildingBean[] buildings = mBattlefield.getPlayerBase().getBuildingSupported();
+			for(int i = 0 ; i < buildings.length ; ++i)
 			{
-				final BuildingCell cell = new BuildingCell(types[i], GameFactory.getCostForBuilding(types[i]));
+				final BuildingCell cell = new BuildingCell(buildings[i]);
 				cell.setX((i+1)*15 + i * cell.getWidth());
 				cell.setY(20);
 				addActor(cell);
@@ -344,22 +347,23 @@ public class BaseManagementPanel extends Group
 		private Image mBg;
 		private int mCost;
 		private Image mThumb;
-		private BuildingType mType;
+		private BuildingBean mBuilding;
 		
-		public BuildingCell(BuildingType type, int cost)
+		public BuildingCell(BuildingBean buildingBean)
 		{
 			super();
 			final TextureAtlas atlas = mAssetManager.get("data/game_screen.atlas", TextureAtlas.class);
 			
-			mCost = cost;
+			mBuilding = buildingBean;
+			mCost = buildingBean.getCostForBuilding();
 			mBg = new Image(atlas.createPatch("thumb-portrait"));
-			final Image thumb = new Image(GameFactory.getThumbForBuilding(type, atlas));
+			final Image thumb = new Image(atlas.findRegion(mBuilding.getThumb()));
 			mThumb = thumb;
-			mType = type;
+			mBuilding = buildingBean;
 			final Image coins = new Image(atlas.findRegion("coins"));
 			final LabelStyle labelStyle = new LabelStyle();
 			labelStyle.font = mAssetManager.get("data/fonts/charlemagne.fnt", BitmapFont.class);
-			final Label costLabel = new Label(String.valueOf(cost), labelStyle);
+			final Label costLabel = new Label(String.valueOf(mCost), labelStyle);
 			
 			setWidth(thumb.getWidth() + 10);
 			setHeight(thumb.getHeight() + 35);
@@ -387,14 +391,13 @@ public class BaseManagementPanel extends Group
 			setColor(1, 0, 0, 0.5f);
 		}
 		
+		public BuildingBean getBuildingBean() {
+			return mBuilding;
+		}
+
 		public TextureRegionDrawable getThumb()
 		{
 			return ((TextureRegionDrawable)mThumb.getDrawable());
-		}
-
-		public BuildingType getBuildingType()
-		{
-			return mType;
 		}
 
 		public void setSelected(boolean selected)

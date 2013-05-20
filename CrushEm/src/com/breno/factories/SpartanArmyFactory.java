@@ -1,18 +1,12 @@
 package com.breno.factories;
 
-import static com.breno.crushem.BuildingType.SPARTAN_BLUE_GUY_FOR_TEST;
-import static com.breno.crushem.BuildingType.SPARTAN_ECONOMY;
-import static com.breno.crushem.BuildingType.SPARTAN_POPULATION;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pools;
 import com.breno.crushem.ArmyType;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
@@ -20,7 +14,11 @@ import com.breno.crushem.Team;
 import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
+import com.breno.crushem.bean.BuildingBean;
+import com.breno.crushem.bean.EconomyBuildingBean;
+import com.breno.crushem.bean.MilitaryBuildingBean;
+import com.breno.crushem.bean.PopulationBuildingBean;
 
 /**
  * Classe factory para o exercito Espartano
@@ -31,22 +29,39 @@ import com.breno.crushem.bean.Army;
 public class SpartanArmyFactory {
 	
 	
-	public static Army createArmy() {
+	public static ArmyBean createArmy() {
 		
-		Army spartanArmy = new Army(ArmyType.SPARTAN);
+		ArmyBean spartanArmy = new ArmyBean(ArmyType.SPARTAN);
 		
 		spartanArmy.setInitialCash(400);
 		spartanArmy.setInitialPopulation(3);
 		
-		spartanArmy.setSupportedBuildings(new BuildingType[] {
-				SPARTAN_BLUE_GUY_FOR_TEST, 
-				SPARTAN_ECONOMY, 
-				SPARTAN_POPULATION});
+		spartanArmy.setSupportedBuildings(new BuildingBean[] {
+				createSpartanBlueFighterBuilding(), 
+				createSpartanEconomyBuilding(), 
+				createSpartanPopulationBuilding()});
 		
 		return spartanArmy;
 		
 	}
 	
+	
+	private static BuildingBean createSpartanBlueFighterBuilding() {
+		
+		MilitaryBuildingBean bean = new MilitaryBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(150);
+		bean.setThumb("thumb-spartan-blue-fighter");
+		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
+		bean.setName("Blue-Furious academy");
+		bean.setTotalProgress(3);
+		bean.setType(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
+		
+		return bean;
+	}
+
+
 	public static GameObject createBaseWall(Team team, AssetManager assetMgr) {
 		
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
@@ -119,5 +134,36 @@ public class SpartanArmyFactory {
 		return blueFighter;
 	}
 	
+
+	private static EconomyBuildingBean createSpartanEconomyBuilding() {
+		
+		EconomyBuildingBean bean = new EconomyBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(505);
+		bean.setThumb("thumb-spartan-economy");
+		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
+		bean.setName("Market.");
+		bean.setTotalProgress(1);
+		bean.setCashIncrement(5);
+		
+		return bean;
+		
+	}
+	
+	private static PopulationBuildingBean createSpartanPopulationBuilding() {
+		
+		PopulationBuildingBean bean = new PopulationBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(200);
+		bean.setThumb("thumb-spartan-population");
+		bean.setDescription("A mannor that increases your army's max size by 5");
+		bean.setName("Mannor.");
+		bean.setPopulationIncrement(5);
+		
+		return bean;
+		
+	}
 
 }

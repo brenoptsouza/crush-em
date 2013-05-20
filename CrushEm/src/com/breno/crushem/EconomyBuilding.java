@@ -1,14 +1,16 @@
 package com.breno.crushem;
 
+import com.breno.crushem.bean.EconomyBuildingBean;
+
 public class EconomyBuilding extends Building
 {
 
 	private int mCashIncrement;
 	
-	public EconomyBuilding(ArmyBase armyBase, float total, int cashIncrement)
+	public EconomyBuilding(EconomyBuildingBean bean)
 	{
-		super(BuildingSuperType.ECONOMIY, armyBase, total);
-		mCashIncrement = cashIncrement;
+		super(bean);
+		mCashIncrement = bean.getCashIncrement();
 	}
 
 	public int getCashIncrement()

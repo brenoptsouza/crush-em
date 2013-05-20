@@ -109,6 +109,7 @@ public class TopBar extends Group
 		mPopulationLabel.setText(mStringBuffer.toString());
 		final Array<MilitaryBuilding> militaryBuildings = playerBase.getMilitaryBuildings();
 		final Iterator<MilitaryBuilding> i = militaryBuildings.iterator();
+		
 		//TODO implement the removed from ArmyBase case
 		while(i.hasNext())
 			tryToAdd(i.next());
@@ -157,7 +158,7 @@ public class TopBar extends Group
 			final FighterProgressButton fgp = i.next();
 			if(!addedInExistentButton)
 			{
-				if(fgp.fighterType == militaryBuilding.getFighterType())
+				if(fgp.mFighterType == militaryBuilding.getFighterType())
 				{
 					if(fgp.getBuildings().contains(militaryBuilding, false))
 					{
@@ -177,7 +178,8 @@ public class TopBar extends Group
 		}
 		if(!addedInExistentButton)
 		{
-			final FighterProgressButton fgp = new FighterProgressButton(mAssetManager, militaryBuilding.getFighterType());
+			final FighterProgressButton fgp = new FighterProgressButton(mAssetManager, 
+					militaryBuilding.getThumb(), militaryBuilding.getFighterType());
 			fgp.addMilitaryBuilding(militaryBuilding);
 			addActor(fgp);
 			final float rightMargin = mFighterButtons.size == 0 ? 0 : mFighterButtons.peek().getRight(); 

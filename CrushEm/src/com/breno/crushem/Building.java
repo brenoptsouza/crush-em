@@ -1,5 +1,7 @@
 package com.breno.crushem;
 
+import com.breno.crushem.bean.BuildingBean;
+
 public abstract class Building
 {
 	
@@ -9,15 +11,18 @@ public abstract class Building
 	private BuildingSuperType mSuperType;
 	private int mLevel;
 	private float mProgress;
-	private float mTotal;
+	private float mTotalProgress;
+	private String mThumb;
 	
-	public Building(BuildingSuperType superType, ArmyBase armyBase, float total)
+	
+	public Building(BuildingBean buildingBean)
 	{
-		mSuperType = superType;
-		mArmyBase = armyBase;
+		mSuperType = buildingBean.getSuperType();
+		mArmyBase = buildingBean.getArmyBase();
+		mTotalProgress = buildingBean.getTotalProgress();
+		mThumb = buildingBean.getThumb();
 		mLevel = 1;
 		mProgress = 0;
-		mTotal = total;
 	}
 	
 	public int getLevel()
@@ -38,11 +43,14 @@ public abstract class Building
 	}
 	public float getTotal()
 	{
-		return mTotal;
+		return mTotalProgress;
 	}
 	public void setTotal(float total)
 	{
-		this.mTotal = total;
+		this.mTotalProgress = total;
+	}
+	public String getThumb() {
+		return this.mThumb;
 	}
 	
 	public BuildingSuperType getBuildingSuperType() {
@@ -51,10 +59,10 @@ public abstract class Building
 	
 	public void update(float delta)
 	{
-		if(mProgress < mTotal)
+		if(mProgress < mTotalProgress)
 		{
 			mProgress += delta;
-			mProgress = mProgress >= mTotal ? mTotal : mProgress;  
+			mProgress = mProgress >= mTotalProgress ? mTotalProgress : mProgress;  
 		} else {
 			enableAction();
 		}

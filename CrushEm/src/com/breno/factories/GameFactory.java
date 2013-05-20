@@ -15,7 +15,7 @@ import com.breno.crushem.Battlefield;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.Team;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
 
 /**
  * Factory basica do Game.
@@ -28,7 +28,7 @@ public class GameFactory
 {
 	
 	
-	public static Army createArmy(ArmyType armyType){
+	public static ArmyBean createArmy(ArmyType armyType){
 		
 		switch(armyType) {
 		
@@ -155,126 +155,6 @@ public class GameFactory
 
 		default:
 			throw new IllegalArgumentException("Fighter type not supported yet..." + type);
-		}
-	}
-
-
-	public static TextureRegion getThumbForBuilding(BuildingType buildingType, TextureAtlas atlas)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return atlas.findRegion("thumb-spartan-blue-fighter");
-		case SPARTAN_RED_GUY_FOR_TEST:
-			return atlas.findRegion("thumb-spartan-red-fighter");
-		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return atlas.findRegion("thumb-spartan-green-fighter");
-		case SPARTAN_ECONOMY:
-			return atlas.findRegion("thumb-spartan-economy");
-		case SPARTAN_POPULATION:
-			return atlas.findRegion("thumb-spartan-population");
-
-		default:
-			return null;
-		}
-	}
-
-	public static int getCostForBuilding(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return 150;
-		case SPARTAN_RED_GUY_FOR_TEST:
-			return 230;
-		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return 575;
-		case SPARTAN_ECONOMY:
-			return 505;
-		case SPARTAN_POPULATION:
-			return 200;
-
-		default:
-			return 0;
-		}
-	}
-
-	public static String getDescriptionForBuilding(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return "The training of the blue-furious is cheap and fast, but the units are weak and do not support much damage.";
-		case SPARTAN_RED_GUY_FOR_TEST:
-			return "Trains the red-blazes, it takes some time but they are strong and well armored.";
-		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return "The gummy fighters are weak but can take lots of damage.";
-		case SPARTAN_ECONOMY:
-			return "The Market increases the cash income for your base. Adds +5 gold to your funds per second";
-		case SPARTAN_POPULATION:
-			return "A mannor that increases your army's max size by 5";
-
-		default:
-			return "";
-		}
-	}
-
-	public static String getBuildingName(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return "Blue-Furious academy";
-		case SPARTAN_RED_GUY_FOR_TEST:
-			return "Red-blazes barracks.";
-		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return "Sewers";
-		case SPARTAN_ECONOMY:
-			return "Market";
-		case SPARTAN_POPULATION:
-			return "Mannor";
-
-		default:
-			return "";
-		}
-	}
-
-	public static float getTrainingTimeForBuilding(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return 3;
-		case SPARTAN_RED_GUY_FOR_TEST:
-			return 9;
-		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return 5;
-		case SPARTAN_ECONOMY:
-			return 1;
-		default:
-			return 0;
-		}
-	}
-	
-	public static int getCashIncrease(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_ECONOMY:
-			return 5;
-		default:
-			return 0;
-		}
-	}
-	
-	public static int getPopulationIncrease(BuildingType buildingType)
-	{
-		switch (buildingType)
-		{
-		case SPARTAN_POPULATION:
-			return 5;
-		default:
-			return 0;
 		}
 	}
 

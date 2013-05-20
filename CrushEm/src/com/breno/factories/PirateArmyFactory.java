@@ -1,24 +1,25 @@
 package com.breno.factories;
 
-import static com.breno.crushem.BuildingType.SPARTAN_ECONOMY;
-import static com.breno.crushem.BuildingType.SPARTAN_POPULATION;
-import static com.breno.crushem.BuildingType.SPARTAN_RED_GUY_FOR_TEST;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.ArmyType;
+import com.breno.crushem.BuildingSuperType;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.Team;
 import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
+import com.breno.crushem.bean.BuildingBean;
+import com.breno.crushem.bean.EconomyBuildingBean;
+import com.breno.crushem.bean.MilitaryBuildingBean;
+import com.breno.crushem.bean.PopulationBuildingBean;
 
 /**
  * Classe factory para o exercito de Piratas
@@ -30,21 +31,67 @@ public class PirateArmyFactory {
 	
 	
 	
-	public static Army createArmy() {
-		
-		Army pirateArmy = new Army(ArmyType.PIRATE);
+	public static ArmyBean createArmy() { 
+		ArmyBean pirateArmy = new ArmyBean(ArmyType.PIRATE);
 		
 		pirateArmy.setInitialCash(500);
 		pirateArmy.setInitialPopulation(2);
 		
-		pirateArmy.setSupportedBuildings(new BuildingType[] {
-				SPARTAN_RED_GUY_FOR_TEST, 
-				SPARTAN_ECONOMY, 
-				SPARTAN_POPULATION});
+		pirateArmy.setSupportedBuildings(new BuildingBean[] {
+				createRedFighterBuilding(), 
+				createPirateEconomyBuilding(), 
+				createPiratePopulationBuilding()});
 		
 		return pirateArmy;
 		
 	}
+	
+	private static MilitaryBuildingBean createRedFighterBuilding() {
+		
+		MilitaryBuildingBean bean = new MilitaryBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(230);
+		bean.setThumb("thumb-spartan-red-fighter");
+		bean.setDescription("Trains the red-blazes, it takes some time but they are strong and well armored.");
+		bean.setName("Red-blazes barracks.");
+		bean.setTotalProgress(9);
+		bean.setType(BuildingType.SPARTAN_RED_GUY_FOR_TEST);
+		
+		return bean;
+		
+	}
+	
+	private static EconomyBuildingBean createPirateEconomyBuilding() {
+		
+		EconomyBuildingBean bean = new EconomyBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(505);
+		bean.setThumb("thumb-spartan-economy");
+		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
+		bean.setName("Market.");
+		bean.setTotalProgress(1);
+		bean.setCashIncrement(5);
+		
+		return bean;
+		
+	}
+	
+	private static PopulationBuildingBean createPiratePopulationBuilding() {
+		
+		PopulationBuildingBean bean = new PopulationBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(200);
+		bean.setThumb("thumb-spartan-population");
+		bean.setDescription("A mannor that increases your army's max size by 5");
+		bean.setName("Mannor.");
+		bean.setPopulationIncrement(5);
+		
+		return bean;
+	}
+	
 	
 	
 	public static GameObject createBaseWall(Team team, AssetManager assetMgr) {

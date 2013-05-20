@@ -1,6 +1,5 @@
 package com.breno;
 
-import java.util.Iterator;
 import java.util.Random;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -28,11 +27,15 @@ public class CPUPlayer
 		this.mStage = stage;
 		this.mAssetMgr = assetMgr;
 		mRandom = new Random();
+		
+		
+		
+//				buildMilitaryBuilding(mBattlefield.getCpuBase(), BuildingType.SPARTAN_BLUE_GUY_FOR_TEST, 20, 50, "Building Description");
 
 		// TODO This is just for tests
-		addMilitaryBuilding(new MilitaryBuilding(mBattlefield.getCpuBase(), 20, BuildingType.SPARTAN_BLUE_GUY_FOR_TEST));
-		addMilitaryBuilding(new MilitaryBuilding(mBattlefield.getCpuBase(), 18, BuildingType.SPARTAN_BLUE_GUY_FOR_TEST));
-		addMilitaryBuilding(new MilitaryBuilding(mBattlefield.getCpuBase(), 26, BuildingType.SPARTAN_BLUE_GUY_FOR_TEST));
+//		addMilitaryBuilding(new MilitaryBuilding(bean));
+//		addMilitaryBuilding(new MilitaryBuilding(bean));
+//		addMilitaryBuilding(new MilitaryBuilding(bean));
 
 	}
 

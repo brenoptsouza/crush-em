@@ -1,5 +1,7 @@
 package com.breno.crushem;
 
+import com.breno.crushem.bean.MilitaryBuildingBean;
+
 public class MilitaryBuilding extends Building
 {
 
@@ -7,10 +9,11 @@ public class MilitaryBuilding extends Building
 	
 	private boolean fighterReady;
 	
-	public MilitaryBuilding(ArmyBase armyBase, float total,  BuildingType fighterType)
+	public MilitaryBuilding(MilitaryBuildingBean buildingBean)
 	{
-		super(BuildingSuperType.MILITARY, armyBase, total);
-		mType = fighterType;
+		super(buildingBean);
+		
+		mType = buildingBean.getType();
 		fighterReady = false;
 	}
 	

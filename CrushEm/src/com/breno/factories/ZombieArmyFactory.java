@@ -1,14 +1,10 @@
 package com.breno.factories;
 
-import static com.breno.crushem.BuildingType.SPARTAN_ECONOMY;
-import static com.breno.crushem.BuildingType.SPARTAN_GREEN_GUY_FOR_TEST;
-import static com.breno.crushem.BuildingType.SPARTAN_POPULATION;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.ArmyType;
@@ -18,7 +14,11 @@ import com.breno.crushem.Team;
 import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
+import com.breno.crushem.bean.BuildingBean;
+import com.breno.crushem.bean.EconomyBuildingBean;
+import com.breno.crushem.bean.MilitaryBuildingBean;
+import com.breno.crushem.bean.PopulationBuildingBean;
 
 /**
  * Classe factory para o exercito de Zumbis
@@ -29,17 +29,17 @@ import com.breno.crushem.bean.Army;
 public class ZombieArmyFactory {
 	
 	
-	public static Army createArmy() {
+	public static ArmyBean createArmy() {
 		
-		Army zumbiArmy = new Army(ArmyType.ZOMBIE);
+		ArmyBean zumbiArmy = new ArmyBean(ArmyType.ZOMBIE);
 		
 		zumbiArmy.setInitialCash(300);
 		zumbiArmy.setInitialPopulation(6);
 		
-		zumbiArmy.setSupportedBuildings(new BuildingType[] {
-				SPARTAN_GREEN_GUY_FOR_TEST, 
-				SPARTAN_ECONOMY, 
-				SPARTAN_POPULATION});
+		zumbiArmy.setSupportedBuildings(new BuildingBean[] {
+				createZombieGreenFighterBuilding(), 
+				createZombieEconomyBuilding(), 
+				createZombiePopulationBuilding()});
 		
 		return zumbiArmy;
 		
@@ -113,6 +113,52 @@ public class ZombieArmyFactory {
 		greenFighter.addAction(new Die(greenFighter, new Animation(0.09f, dieFrames)));
 
 		return greenFighter;
+	}
+	
+	private static EconomyBuildingBean createZombieEconomyBuilding() {
+		
+		EconomyBuildingBean bean = new EconomyBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(505);
+		bean.setThumb("thumb-spartan-economy");
+		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
+		bean.setName("Market.");
+		bean.setTotalProgress(1);
+		bean.setCashIncrement(5);
+		
+		return bean;
+		
+	}
+	
+	private static PopulationBuildingBean createZombiePopulationBuilding() {
+		
+		PopulationBuildingBean bean = new PopulationBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(200);
+		bean.setThumb("thumb-spartan-population");
+		bean.setDescription("A mannor that increases your army's max size by 5");
+		bean.setName("Mannor.");
+		bean.setPopulationIncrement(5);
+		
+		return bean;
+		
+	}
+	
+	private static BuildingBean createZombieGreenFighterBuilding() {
+		
+		MilitaryBuildingBean bean = new MilitaryBuildingBean();
+		
+		bean.setArmyBase(null);
+		bean.setCostForBuilding(575);
+		bean.setThumb("thumb-spartan-green-fighter");
+		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
+		bean.setName("Sewers");
+		bean.setTotalProgress(5);
+		bean.setType(BuildingType.SPARTAN_GREEN_GUY_FOR_TEST);
+		
+		return bean;
 	}
 
 }

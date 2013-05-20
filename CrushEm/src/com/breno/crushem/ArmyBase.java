@@ -3,7 +3,8 @@ package com.breno.crushem;
 import java.util.Iterator;
 
 import com.badlogic.gdx.utils.Array;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
+import com.breno.crushem.bean.BuildingBean;
 
 public class ArmyBase
 {
@@ -15,13 +16,13 @@ public class ArmyBase
 	
 	private Array<Building> mBuildings;
 	private Array<MilitaryBuilding> mMilitaryBuildings;
-	private BuildingType[] mSupportedBuildings;
+	private BuildingBean[] mSupportedBuildings;
 	
 	/**
-	 * Cria um {@link ArmyBase} atraves do wrapper {@link Army}.
+	 * Cria um {@link ArmyBase} atraves do wrapper {@link ArmyBean}.
 	 * 
 	 */
-	public ArmyBase(Army army) {
+	public ArmyBase(ArmyBean army) {
 		
 		mSupportedPopulation = army.getInitialPopulation();
 		mCash = army.getInitialCash();
@@ -127,7 +128,7 @@ public class ArmyBase
 		this.mMilitaryBuildings.add(building);
 	}
 	
-	public BuildingType[] getBuildingSupported() {
+	public BuildingBean[] getBuildingSupported() {
 		return mSupportedBuildings;
 				
 	}

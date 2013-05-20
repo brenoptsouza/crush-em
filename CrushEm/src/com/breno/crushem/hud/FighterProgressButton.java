@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.MilitaryBuilding;
+import com.breno.crushem.bean.BuildingBean;
 import com.breno.factories.GameFactory;
 
 public class FighterProgressButton extends Group
@@ -22,24 +23,25 @@ public class FighterProgressButton extends Group
 	public static final float SPACE_BETWEEN_CELLS = 15;
 	public static final float MARGIN = 6;
 	
-	Array<FighterButtonCell> mCells;
+	private Array<FighterButtonCell> mCells;
 	
-	public BuildingType fighterType;
 	//Every building on this array must have the same fighter type
-	Array<MilitaryBuilding> mBuildings;
-	boolean mHasAvailableUnit;
+	private Array<MilitaryBuilding> mBuildings;
+	private boolean mHasAvailableUnit;
 	private TextureAtlas mAtlas;
 	
 	private int mPivot;
+	private String mFighterButtonThumb;
+	public BuildingType mFighterType;
 	
-	public FighterProgressButton(AssetManager assetMgr, BuildingType type)
+	public FighterProgressButton(AssetManager assetMgr, String fighterButtonThumb, BuildingType fighterType)
 	{
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 		mAtlas = atlas;
-		fighterType = type;
+		mFighterButtonThumb = fighterButtonThumb;
 		mBuildings = new Array<MilitaryBuilding>();
 		mBuildings.ordered = true;
-		
+		mFighterType = fighterType;
 		mCells = new Array<FighterButtonCell>();
 		
 		LabelStyle counterStyle = new LabelStyle();
@@ -80,7 +82,7 @@ public class FighterProgressButton extends Group
 	{
 		final TextureAtlas atlas = mAtlas;
 		
-		final FighterButtonCell cell = new FighterButtonCell(GameFactory.getThumbForBuilding(fighterType, mAtlas),
+		final FighterButtonCell cell = new FighterButtonCell(mAtlas.findRegion(mFighterButtonThumb),
 				atlas.createPatch("thumb-portrait"), atlas.findRegion("fighter-progress"), MARGIN);
 
 		mCells.add(cell);

@@ -28,7 +28,7 @@ import com.breno.crushem.Battlefield;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.MainGame;
 import com.breno.crushem.Team;
-import com.breno.crushem.bean.Army;
+import com.breno.crushem.bean.ArmyBean;
 import com.breno.crushem.hud.BaseManagementPanel;
 import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
@@ -145,8 +145,8 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		Army armyPlayer = GameFactory.createArmy(mHomeArmy);
-		Army armyCPU = GameFactory.createArmy(mAwayArmy);
+		ArmyBean armyPlayer = GameFactory.createArmy(mHomeArmy);
+		ArmyBean armyCPU = GameFactory.createArmy(mAwayArmy);
 		
 		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
 		
@@ -329,7 +329,7 @@ public class LevelScreen extends AbstractScreen
 		public void touchDownFighter(float x, float y, FighterProgressButton button)
 		{
 			System.out.println("TOP BAR BUTTON");
-			mFighter = GameFactory.createFighter(button.fighterType, Team.HOME, mGame.assetMgr);
+			mFighter = GameFactory.createFighter(button.mFighterType, Team.HOME, mGame.assetMgr);
 			mFighterGhost.setDrawable(mFighter.getDrawable());
 			mFighterGhost.setColor(1, 1, 1, 0.6f);
 			

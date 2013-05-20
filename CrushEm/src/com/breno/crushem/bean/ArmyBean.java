@@ -10,16 +10,16 @@ import com.breno.crushem.BuildingType;
  * @author Diego
  *
  */
-public class Army {
+public class ArmyBean {
 	
 	private ArmyType mArmyType;
-	private BuildingType[] mSupportedBuildings;
+	private BuildingBean[] mSupportedBuildings;
 	private int mInitialPopulation;
 	private int mInitialCash;
 	
 	/**
 	 * 
-	 * Cria um {@link Army} com os seguintes parametros:
+	 * Cria um {@link ArmyBean} com os seguintes parametros:
 	 * 
 	 * @param mArmyType
 	 * 		O identificador do exercito 
@@ -30,12 +30,12 @@ public class Army {
 	 * @param mInitialCash
 	 * 		O dinheiro inicial
 	 */
-	public Army(ArmyType mArmyType) {
+	public ArmyBean(ArmyType mArmyType) {
 		this.mArmyType = mArmyType;
 		
 	}
 
-	public BuildingType[] getSupportedBuildings() {
+	public BuildingBean[] getSupportedBuildings() {
 		return mSupportedBuildings;
 	}
 
@@ -51,7 +51,7 @@ public class Army {
 		return mArmyType;
 	}
 
-	public void setSupportedBuildings(BuildingType[] mBuildingsSupported) {
+	public void setSupportedBuildings(BuildingBean[] mBuildingsSupported) {
 		this.mSupportedBuildings = mBuildingsSupported;
 	}
 

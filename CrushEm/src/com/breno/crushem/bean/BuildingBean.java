@@ -12,7 +12,6 @@ import com.breno.crushem.BuildingSuperType;
  */
 public class BuildingBean {
 	
-	private ArmyBase mArmyBase;
 	private BuildingSuperType mSuperType;
 	private int mCostForBuilding;
 	private String mDescription;
@@ -25,12 +24,6 @@ public class BuildingBean {
 	}
 	public void setTotalProgress(float mTotalProgress) {
 		this.mTotalProgress = mTotalProgress;
-	}
-	public ArmyBase getArmyBase() {
-		return mArmyBase;
-	}
-	public void setArmyBase(ArmyBase mArmyBase) {
-		this.mArmyBase = mArmyBase;
 	}
 	public BuildingSuperType getSuperType() {
 		return mSuperType;

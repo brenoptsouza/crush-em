@@ -9,9 +9,9 @@ public class MilitaryBuilding extends Building
 	
 	private boolean fighterReady;
 	
-	public MilitaryBuilding(MilitaryBuildingBean buildingBean)
+	public MilitaryBuilding(MilitaryBuildingBean buildingBean, ArmyBase armyBase)
 	{
-		super(buildingBean);
+		super(buildingBean, armyBase);
 		
 		mType = buildingBean.getType();
 		fighterReady = false;

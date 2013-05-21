@@ -119,7 +119,6 @@ public class ZombieArmyFactory {
 		
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(505);
 		bean.setThumb("thumb-spartan-economy");
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
@@ -135,7 +134,6 @@ public class ZombieArmyFactory {
 		
 		PopulationBuildingBean bean = new PopulationBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(200);
 		bean.setThumb("thumb-spartan-population");
 		bean.setDescription("A mannor that increases your army's max size by 5");
@@ -150,7 +148,6 @@ public class ZombieArmyFactory {
 		
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(575);
 		bean.setThumb("thumb-spartan-green-fighter");
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");

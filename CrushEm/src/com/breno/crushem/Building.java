@@ -15,10 +15,10 @@ public abstract class Building
 	private String mThumb;
 	
 	
-	public Building(BuildingBean buildingBean)
+	public Building(BuildingBean buildingBean, ArmyBase armyBase)
 	{
 		mSuperType = buildingBean.getSuperType();
-		mArmyBase = buildingBean.getArmyBase();
+		mArmyBase = armyBase;
 		mTotalProgress = buildingBean.getTotalProgress();
 		mThumb = buildingBean.getThumb();
 		mLevel = 1;

@@ -19,18 +19,24 @@ import com.breno.crushem.MainGame;
 import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;
+import com.breno.crushem.bean.ArmyBean;
+import com.breno.factories.GameFactory;
+import com.sun.org.apache.xalan.internal.utils.ObjectFactory;
 
 public class LevelLoadingScreen extends AbstractLoadingScreen
 {
 
-	private ArmyType mPlayerArmy;
-	private ArmyType mEnemyArmy;
+	private ArmyType mPlayerType;
+	private ArmyType mEnemyType;
+	
+	private ArmyBean mPlayerArmy;
+	private ArmyBean mEnemyArmy;
 	
 	public LevelLoadingScreen(MainGame game, ArmyType player, ArmyType enemy)
 	{
 		super(game);
-		mPlayerArmy = player;
-		mEnemyArmy = enemy;
+		mPlayerType = player;
+		mEnemyType = enemy;
 	}
 
 	@Override
@@ -39,6 +45,10 @@ public class LevelLoadingScreen extends AbstractLoadingScreen
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		assetManager.load("data/levels/level1.tmx", TiledMap.class);
 		assetManager.load("data/game_screen.atlas", TextureAtlas.class);
+		
+		// Create the armies
+		mPlayerArmy = GameFactory.createArmy(mPlayerType);
+		mEnemyArmy = GameFactory.createArmy(mEnemyType);
 		
 		//init pools
 		final Pool<MoveByAction> movebypool = Pools.get(MoveByAction.class);

@@ -62,10 +62,10 @@ public class LevelScreen extends AbstractScreen
 	Rectangle clipBounds = new Rectangle();
 	BaseManagementPanel mManagementPanel;
 	
-	ArmyType mHomeArmy;
-	ArmyType mAwayArmy;
+	ArmyBean mHomeArmy;
+	ArmyBean mAwayArmy;
 	
-	public LevelScreen(MainGame game, ArmyType homeArmy, ArmyType awayArmy)
+	public LevelScreen(MainGame game, ArmyBean homeArmy, ArmyBean awayArmy)
 	{
 		super(game);
 		
@@ -145,10 +145,8 @@ public class LevelScreen extends AbstractScreen
 	
 	private void initBattlefield()
 	{
-		ArmyBean armyPlayer = GameFactory.createArmy(mHomeArmy);
-		ArmyBean armyCPU = GameFactory.createArmy(mAwayArmy);
 		
-		mBattlefield = new Battlefield(new ArmyBase(armyPlayer), new ArmyBase(armyCPU));
+		mBattlefield = new Battlefield(new ArmyBase(mHomeArmy), new ArmyBase(mAwayArmy));
 		
 		final MapLayer objectsLayer = mMap.getLayers().get("lanes");
 		final MapObjects mapObjects = objectsLayer.getObjects();
@@ -195,20 +193,24 @@ public class LevelScreen extends AbstractScreen
 		
 		addBaseWalls();
 		
-		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mAwayArmy, mGame.assetMgr);
+		mCpu = new CPUPlayer(mBattlefield, mBattlefieldStage, mAwayArmy.getArmyType(), mGame.assetMgr);
 	}
 	
 	private void addBaseWalls()
 	{
-		final GameObject playerBaseWall = GameFactory.createBaseWall(Team.HOME, mHomeArmy, mGame.assetMgr);
-		final GameObject cpuBaseWall = GameFactory.createBaseWall(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		final ArmyType homeArmyType = mHomeArmy.getArmyType();
+		final ArmyType enemyArmyType = mAwayArmy.getArmyType();
+		
+		// TODO: Tirar isso daqui... tudo deve ser carregado na tela de loading
+		final GameObject playerBaseWall = GameFactory.createBaseWall(Team.HOME, homeArmyType, mGame.assetMgr);
+		final GameObject cpuBaseWall = GameFactory.createBaseWall(Team.AWAY, enemyArmyType, mGame.assetMgr);
 		
 		mBattlefield.setHomeBaseWall(playerBaseWall);
 		mBattlefield.setAwayBaseWall(cpuBaseWall);
 		cpuBaseWall.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 	
-		final GameObject playerBaseWallBg = GameFactory.createBaseWallBg(Team.HOME, mHomeArmy, mGame.assetMgr);
-		final GameObject cpuBaseWallBg = GameFactory.createBaseWallBg(Team.AWAY, mAwayArmy, mGame.assetMgr);
+		final GameObject playerBaseWallBg = GameFactory.createBaseWallBg(Team.HOME, homeArmyType, mGame.assetMgr);
+		final GameObject cpuBaseWallBg = GameFactory.createBaseWallBg(Team.AWAY, enemyArmyType, mGame.assetMgr);
 		cpuBaseWallBg.setX(mBattlefield.getLevelWidth() - cpuBaseWall.getWidth());
 
 		mBattlefieldStage.getActors().insert(0, playerBaseWallBg);

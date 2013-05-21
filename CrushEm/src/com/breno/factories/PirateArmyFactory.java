@@ -50,7 +50,6 @@ public class PirateArmyFactory {
 		
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(230);
 		bean.setThumb("thumb-spartan-red-fighter");
 		bean.setDescription("Trains the red-blazes, it takes some time but they are strong and well armored.");
@@ -66,7 +65,6 @@ public class PirateArmyFactory {
 		
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(505);
 		bean.setThumb("thumb-spartan-economy");
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
@@ -82,7 +80,6 @@ public class PirateArmyFactory {
 		
 		PopulationBuildingBean bean = new PopulationBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(200);
 		bean.setThumb("thumb-spartan-population");
 		bean.setDescription("A mannor that increases your army's max size by 5");

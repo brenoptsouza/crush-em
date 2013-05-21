@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.breno.crushem.ArmyBase;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.EconomyBuilding;
 import com.breno.crushem.MilitaryBuilding;
@@ -100,7 +101,7 @@ public class BaseManagementPanel extends Group
 	
 	private void onBuildingSelected(BuildingCell cell)
 	{
-		mDescPanel.setContent(cell.getThumb(), cell.getBuildingBean());
+		mDescPanel.setContent(cell.getThumb(), mBattlefield.getPlayerBase(), cell.getBuildingBean());
 	}
 	
 	public void animateOut()
@@ -138,6 +139,7 @@ public class BaseManagementPanel extends Group
 		private Image mThumb;
 		private Button mBuildButton;
 		private BuildingBean mBuildingBean;
+		private ArmyBase mArmyBase;
 		
 		public DescriptionPanel()
 		{
@@ -179,6 +181,7 @@ public class BaseManagementPanel extends Group
 			
 			mBuildButton.addListener(new InputListener()
 			{
+
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 				{
@@ -196,12 +199,12 @@ public class BaseManagementPanel extends Group
 						switch(mBuildingBean.getSuperType()){
 						
 						case ECONOMIY:
-							EconomyBuilding economyBuilding = new EconomyBuilding((EconomyBuildingBean) mBuildingBean);
+							EconomyBuilding economyBuilding = new EconomyBuilding((EconomyBuildingBean) mBuildingBean, mArmyBase);
 							mBattlefield.getPlayerBase().addBuilding(economyBuilding);
 							break;
 						
 						case MILITARY:
-							MilitaryBuilding militaryBuilding = new MilitaryBuilding((MilitaryBuildingBean) mBuildingBean);
+							MilitaryBuilding militaryBuilding = new MilitaryBuilding((MilitaryBuildingBean) mBuildingBean, mArmyBase);
 							mBattlefield.getPlayerBase().addMilitaryBuilding(militaryBuilding);
 							break;
 						
@@ -215,8 +218,9 @@ public class BaseManagementPanel extends Group
 			});
 		}
 		
-		public void setContent(TextureRegionDrawable thumb, BuildingBean buildingBean)
+		public void setContent(TextureRegionDrawable thumb, ArmyBase armyBase, BuildingBean buildingBean)
 		{
+			mArmyBase = armyBase;
 			mBuildingBean = buildingBean;
 			final int cost = buildingBean.getCostForBuilding();
 			mThumb.setDrawable(thumb);
@@ -237,7 +241,8 @@ public class BaseManagementPanel extends Group
 		@Override
 		public void act(float delta)
 		{
-//			mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < mBuildingBean.getCostForBuilding());
+			// FIXME
+			//mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < mBuildingBean.getCostForBuilding());
 			super.act(delta);
 		}
 	}

@@ -7,9 +7,9 @@ public class EconomyBuilding extends Building
 
 	private int mCashIncrement;
 	
-	public EconomyBuilding(EconomyBuildingBean bean)
+	public EconomyBuilding(EconomyBuildingBean bean, ArmyBase armyBase)
 	{
-		super(bean);
+		super(bean, armyBase);
 		mCashIncrement = bean.getCashIncrement();
 	}
 

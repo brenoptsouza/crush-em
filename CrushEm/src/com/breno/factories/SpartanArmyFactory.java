@@ -50,7 +50,6 @@ public class SpartanArmyFactory {
 		
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(150);
 		bean.setThumb("thumb-spartan-blue-fighter");
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
@@ -139,7 +138,6 @@ public class SpartanArmyFactory {
 		
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(505);
 		bean.setThumb("thumb-spartan-economy");
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
@@ -155,7 +153,6 @@ public class SpartanArmyFactory {
 		
 		PopulationBuildingBean bean = new PopulationBuildingBean();
 		
-		bean.setArmyBase(null);
 		bean.setCostForBuilding(200);
 		bean.setThumb("thumb-spartan-population");
 		bean.setDescription("A mannor that increases your army's max size by 5");

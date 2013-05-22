@@ -120,6 +120,10 @@ public class ArmyBase
 		mTeam = team;
 	}
 	
+	public Team getTeam() {
+		return mTeam;
+	}
+
 	public boolean isOverPopulation() {
 		return mBattlefield.getAllFighters(mTeam).size >= mSupportedPopulation;
 	}

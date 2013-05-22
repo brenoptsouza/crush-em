@@ -1,11 +1,10 @@
 package com.breno.crushem.bean;
 
-import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.ArmyType;
-import com.breno.crushem.BuildingType;
+import com.breno.crushem.GameObject;
 
 /**
- * Classe que agrupa os dados especificos de um exercito.
+ * Classe que agrupa TODOS os dados especificos de um exercito.
  * 
  * @author Diego
  *
@@ -14,22 +13,11 @@ public class ArmyBean {
 	
 	private ArmyType mArmyType;
 	private BuildingBean[] mSupportedBuildings;
+	private GameObject mBaseWall;
+	private GameObject mBaseWallBg;
 	private int mInitialPopulation;
 	private int mInitialCash;
 	
-	/**
-	 * 
-	 * Cria um {@link ArmyBean} com os seguintes parametros:
-	 * 
-	 * @param mArmyType
-	 * 		O identificador do exercito 
-	 * @param mSupportedBuildings
-	 * 		O tipo de construcoes que o exercito pode construir
-	 * @param mInitialPopulation
-	 * 		A populacao inicial
-	 * @param mInitialCash
-	 * 		O dinheiro inicial
-	 */
 	public ArmyBean(ArmyType mArmyType) {
 		this.mArmyType = mArmyType;
 		
@@ -62,8 +50,22 @@ public class ArmyBean {
 	public void setInitialCash(int mInitialCash) {
 		this.mInitialCash = mInitialCash;
 	}
-	
-	
+
+	public GameObject getmBaseWall() {
+		return mBaseWall;
+	}
+
+	public void setmBaseWall(GameObject mBaseWall) {
+		this.mBaseWall = mBaseWall;
+	}
+
+	public GameObject getmBaseWallBg() {
+		return mBaseWallBg;
+	}
+
+	public void setmBaseWallBg(GameObject mBaseWallBg) {
+		this.mBaseWallBg = mBaseWallBg;
+	}
 	
 
 }

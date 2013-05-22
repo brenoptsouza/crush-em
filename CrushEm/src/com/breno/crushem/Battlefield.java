@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.breno.crushem.Screens.LevelScreen;
 
 public class Battlefield
 {
@@ -17,9 +18,11 @@ public class Battlefield
 	private GameObject mAwayBaseWall;
 	private ObjectMap<Integer, Rectangle> mLanesBounds;
 	private float mLevelWidth;
+	private LevelScreen mLevelScreen;
 	
-	public Battlefield(ArmyBase playerBase, ArmyBase cpuBase)
+	public Battlefield(LevelScreen levelScreen, ArmyBase playerBase, ArmyBase cpuBase)
 	{
+		mLevelScreen = levelScreen;
 		mPlayerBase = playerBase;
 		mPlayerBase.setTeam(Team.HOME);
 		mCpuBase = cpuBase;
@@ -151,7 +154,20 @@ public class Battlefield
 	{
 		mPlayerBase.update(delta);
 		mCpuBase.update(delta);
+		
+		final int homeHp = mHomeBaseWall.getHp();
+		if(homeHp < 0) {
+			mLevelScreen.declareWinner(mCpuBase);
+		}
+		
+		final int awayHp = mAwayBaseWall.getHp();
+		if(awayHp < 0) {
+			mLevelScreen.declareWinner(mPlayerBase);
+		}
+		
 	}
+
+
 
 	public float getLevelWidth()
 	{

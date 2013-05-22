@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.ArmyType;
-import com.breno.crushem.BuildingSuperType;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.Team;

@@ -241,7 +241,7 @@ public class BaseManagementPanel extends Group
 		@Override
 		public void act(float delta)
 		{
-			// FIXME
+			// FIXME - O Building bean só é "setado" quando se clica em no botão (NullPointer)
 			//mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < mBuildingBean.getCostForBuilding());
 			super.act(delta);
 		}

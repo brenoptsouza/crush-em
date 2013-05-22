@@ -100,6 +100,10 @@ public class GameObject extends Image
 		mTotalHp = hp;
 		mHp = hp;
 	}
+	
+	public int getHp() {
+		return mHp;
+	}
 
 	public void setLane(int lane)
 	{

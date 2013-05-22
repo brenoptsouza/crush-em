@@ -146,7 +146,7 @@ public class LevelScreen extends AbstractScreen
 	private void initBattlefield()
 	{
 		
-		mBattlefield = new Battlefield(new ArmyBase(mHomeArmy), new ArmyBase(mAwayArmy));
+		mBattlefield = new Battlefield(this, new ArmyBase(mHomeArmy), new ArmyBase(mAwayArmy));
 		
 		final MapLayer objectsLayer = mMap.getLayers().get("lanes");
 		final MapObjects mapObjects = objectsLayer.getObjects();
@@ -156,6 +156,11 @@ public class LevelScreen extends AbstractScreen
 			final RectangleMapObject rectMapObj = (RectangleMapObject) i.next();
 			mBattlefield.addLane(Integer.parseInt(rectMapObj.getName()), rectMapObj.getRectangle());
 		}
+	}
+	
+	public void declareWinner(ArmyBase mPlayerBase) {
+
+		System.out.println(mPlayerBase.getTeam());
 	}
 
 
@@ -201,7 +206,6 @@ public class LevelScreen extends AbstractScreen
 		final ArmyType homeArmyType = mHomeArmy.getArmyType();
 		final ArmyType enemyArmyType = mAwayArmy.getArmyType();
 		
-		// TODO: Tirar isso daqui... tudo deve ser carregado na tela de loading
 		final GameObject playerBaseWall = GameFactory.createBaseWall(Team.HOME, homeArmyType, mGame.assetMgr);
 		final GameObject cpuBaseWall = GameFactory.createBaseWall(Team.AWAY, enemyArmyType, mGame.assetMgr);
 		

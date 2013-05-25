@@ -323,6 +323,8 @@ public class ArmySelectionScreen extends AbstractScreen
 		int mCurrentPage;
 		boolean mThresholdCrossed;
 		private float mTarget;
+		private float mPreviousScrollX;
+		private float mPreviousDelta;
 			
 		private final static float MAX_VELOCITY = 1200;
 		private final static float PAGING_THRESHOLD = 250;
@@ -409,17 +411,20 @@ public class ArmySelectionScreen extends AbstractScreen
 			@Override
 			public void onEvent(int type, BaseTween<?> source)
 			{
-				System.out.println("type: " + type );
 				if(type == TweenCallback.COMPLETE)
 					animateRibbonDown();
 			}
 		};
 		
-		private void setTweenValues(float targtetValue)
+		private void setTweenValues(float targetValue)
 		{
 			mTween.free();
 			mFloat.setValue(getScrollX());
-			mTween = Tween.to(mFloat, 0, 0.8f).target(targtetValue).ease(TweenEquations.easeOutBack).start();
+			final float previousDist = getScrollX() - mPreviousScrollX;
+			final float targetDist = targetValue - getScrollX() ;
+			final float speed = previousDist / mPreviousDelta;
+			final float time = speed ==  0 || !(speed == speed) ? 0.2f : targetDist / speed;
+			mTween = Tween.to(mFloat, 0, Math.abs(time)).target(targetValue).ease(TweenEquations.easeNone).start();
 			mTween.setCallback(animFinished);
 		}
 		
@@ -440,7 +445,6 @@ public class ArmySelectionScreen extends AbstractScreen
 					setVelocityX(0);
 				}
 
-				
 				mTween.update(delta);
 				setScrollX(mFloat.floatValue());
 			}
@@ -449,7 +453,8 @@ public class ArmySelectionScreen extends AbstractScreen
 				mThresholdCrossed = Math.abs(getVelocityX()) >= PAGING_THRESHOLD;
 				mTween.pause();
 			}
-			
+			mPreviousScrollX = getScrollX();
+			mPreviousDelta = delta;
 		}
 		
 	}

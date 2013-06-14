@@ -9,20 +9,27 @@ public abstract class Building
 	
 	protected ArmyBase mArmyBase;
 	private BuildingSuperType mSuperType;
-	private int mLevel;
+	protected int mLevel;
 	private float mProgress;
 	private float mTotalProgress;
 	private String mThumb;
+	protected BuildingBean mBean;
 	
 	
 	public Building(BuildingBean buildingBean, ArmyBase armyBase)
 	{
+		mBean = buildingBean;
 		mSuperType = buildingBean.getSuperType();
 		mArmyBase = armyBase;
-		mTotalProgress = buildingBean.getTotalProgress();
-		mThumb = buildingBean.getThumb();
 		mLevel = 1;
+		mTotalProgress = buildingBean.getTotalProgress(mLevel);
+		mThumb = buildingBean.getThumb(mLevel);
 		mProgress = 0;
+	}
+	
+	public BuildingBean getBean()
+	{
+		return mBean;
 	}
 	
 	public int getLevel()
@@ -45,7 +52,7 @@ public abstract class Building
 	{
 		return mTotalProgress;
 	}
-	public void setTotal(float total)
+	public void setTotals(float total)
 	{
 		this.mTotalProgress = total;
 	}
@@ -59,7 +66,7 @@ public abstract class Building
 	
 	public void update(float delta)
 	{
-		if(mProgress < mTotalProgress)
+		if(mProgress< mTotalProgress)
 		{
 			mProgress += delta;
 			mProgress = mProgress >= mTotalProgress ? mTotalProgress : mProgress;  
@@ -68,5 +75,14 @@ public abstract class Building
 		}
 	}
 
+	public void upgrade()
+	{
+		mLevel++;
+		mThumb = mBean.getThumb(mLevel);
+		mTotalProgress = mBean.getTotalProgress(mLevel);
+		onUpgrade();
+	}
+	
+	protected abstract void onUpgrade();
 	protected abstract void enableAction();
 }

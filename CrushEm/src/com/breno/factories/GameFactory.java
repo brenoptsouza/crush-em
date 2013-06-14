@@ -140,18 +140,18 @@ public class GameFactory
 
 	}
 
-	public static GameObject createFighter(BuildingType type, Team team, AssetManager assetMgr)
+	public static GameObject createFighter(BuildingType type, Team team, int level, AssetManager assetMgr)
 	{
 		switch (type)
 		{
 		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return SpartanArmyFactory.createBlueFighter(team, assetMgr);
+			return SpartanArmyFactory.createBlueFighter(team, level, assetMgr);
 			
 		case SPARTAN_RED_GUY_FOR_TEST:
-			return PirateArmyFactory.createRedFighter(team, assetMgr);
+			return PirateArmyFactory.createRedFighter(team, level, assetMgr);
 			
 		case SPARTAN_GREEN_GUY_FOR_TEST:
-			return ZombieArmyFactory.createGreenFighter(team, assetMgr);
+			return ZombieArmyFactory.createGreenFighter(team, level, assetMgr);
 
 		default:
 			throw new IllegalArgumentException("Fighter type not supported yet..." + type);

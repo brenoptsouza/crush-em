@@ -24,45 +24,43 @@ import com.breno.crushem.bean.PopulationBuildingBean;
  * Classe factory para o exercito Espartano
  * 
  * @author Diego
- *
+ * 
  */
-public class SpartanArmyFactory {
-	
-	
-	public static ArmyBean createArmy() {
-		
+public class SpartanArmyFactory
+{
+
+	public static ArmyBean createArmy()
+	{
+
 		ArmyBean spartanArmy = new ArmyBean(ArmyType.SPARTAN);
-		
-		spartanArmy.setInitialCash(400);
+
+		spartanArmy.setInitialCash(4000);
 		spartanArmy.setInitialPopulation(3);
-		
-		spartanArmy.setSupportedBuildings(new BuildingBean[] {
-				createSpartanBlueFighterBuilding(), 
-				createSpartanEconomyBuilding(), 
-				createSpartanPopulationBuilding()});
-		
+
+		spartanArmy.setSupportedBuildings(new BuildingBean[] { createSpartanBlueFighterBuilding(), createSpartanEconomyBuilding(), createSpartanPopulationBuilding() });
+
 		return spartanArmy;
-		
+
 	}
-	
-	
-	private static BuildingBean createSpartanBlueFighterBuilding() {
-		
+
+	private static BuildingBean createSpartanBlueFighterBuilding()
+	{
+
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
-		
-		bean.setCostForBuilding(150);
-		bean.setThumb("thumb-spartan-blue-fighter");
+
+		bean.setCostForBuilding(new int[]{150, 120, 300});
+		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Blue-Furious academy");
-		bean.setTotalProgress(3);
+		bean.setTotalProgresses(new float[] { 3, 3, 2.8f });
 		bean.setType(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
-		
+
 		return bean;
 	}
 
+	public static GameObject createBaseWall(Team team, AssetManager assetMgr)
+	{
 
-	public static GameObject createBaseWall(Team team, AssetManager assetMgr) {
-		
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 
 		final TextureRegion region = atlas.findRegion("spartan-base-fg");
@@ -79,11 +77,12 @@ public class SpartanArmyFactory {
 		spartanBase.setLane(-1);
 
 		return spartanBase;
-		
+
 	}
-	
-	public static GameObject createBaseWallBg(Team team, AssetManager assetMgr) {
-		
+
+	public static GameObject createBaseWallBg(Team team, AssetManager assetMgr)
+	{
+
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 
 		final TextureRegion region = atlas.findRegion("spartan-base-bg");
@@ -98,10 +97,8 @@ public class SpartanArmyFactory {
 
 		return spartanBaseBg;
 	}
-	
-	
-	
-	public static GameObject createBlueFighter(Team team, AssetManager assetMgr)
+
+	public static GameObject createBlueFighter(Team team, int level, AssetManager assetMgr)
 	{
 		// final Texture blueFighterTexture =
 		// assetMgr.get("data/fighters_blue.png", Texture.class);
@@ -114,7 +111,7 @@ public class SpartanArmyFactory {
 		// Creating the gameobject
 		final GameObject blueFighter = GameFactory.createBasicGameObject(team, walkFrames.get(0), atlas);
 
-		blueFighter.setHp(50);
+		blueFighter.setHp(50 + (10 * level));
 		blueFighter.setVelocity(new Vector2(team == Team.HOME ? 120 : -120, 0));
 		blueFighter.setBoundingBoxPadding(40);
 		blueFighter.setOriginX(blueFighter.getWidth() / 2);
@@ -125,42 +122,43 @@ public class SpartanArmyFactory {
 
 		// adding the actions
 		Run runAction = new Run(blueFighter, new Animation(0.09f, walkFrames));
-		MeleeAttack meleeAction = new MeleeAttack(blueFighter, new Animation(0.09f, atkFrames), 10, 0.7f);
+		MeleeAttack meleeAction = new MeleeAttack(blueFighter, new Animation(0.09f, atkFrames), 10 + (5 * level), 0.7f);
 		blueFighter.addAction(runAction);
 		blueFighter.addAction(meleeAction);
 		blueFighter.addAction(new Die(blueFighter, new Animation(0.09f, dieFrames)));
 
 		return blueFighter;
 	}
-	
 
-	private static EconomyBuildingBean createSpartanEconomyBuilding() {
-		
+	private static EconomyBuildingBean createSpartanEconomyBuilding()
+	{
+
 		EconomyBuildingBean bean = new EconomyBuildingBean();
-		
-		bean.setCostForBuilding(505);
-		bean.setThumb("thumb-spartan-economy");
+
+		bean.setCostForBuilding(new int[]{450, 120, 300});
+		bean.setThumbs(new String[] { "thumb-spartan-economy" });
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
 		bean.setName("Market.");
-		bean.setTotalProgress(1);
-		bean.setCashIncrement(5);
-		
+		bean.setTotalProgresses(new float[] { 1, 1, 1 });
+		bean.setCashIncrements(new int[] { 5, 8, 15 });
+
 		return bean;
-		
+
 	}
-	
-	private static PopulationBuildingBean createSpartanPopulationBuilding() {
-		
+
+	private static PopulationBuildingBean createSpartanPopulationBuilding()
+	{
+
 		PopulationBuildingBean bean = new PopulationBuildingBean();
-		
-		bean.setCostForBuilding(200);
-		bean.setThumb("thumb-spartan-population");
+
+		bean.setCostForBuilding(new int[]{230, 120, 300});
+		bean.setThumbs(new String[] { "thumb-spartan-population", "thumb-spartan-population", "thumb-spartan-population" });
 		bean.setDescription("A mannor that increases your army's max size by 5");
 		bean.setName("Mannor.");
-		bean.setPopulationIncrement(5);
-		
+		bean.setPopulationIncrements(new int[]{5, 8, 13});
+
 		return bean;
-		
+
 	}
 
 }

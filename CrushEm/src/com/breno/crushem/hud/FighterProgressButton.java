@@ -125,6 +125,14 @@ public class FighterProgressButton extends Group
 	{
 		return mHasAvailableUnit;
 	}
+	
+	public MilitaryBuilding getFirstAvailableBuilding()
+	{
+		if(mHasAvailableUnit)
+			return mBuildings.first();
+		else 
+			return null;
+	}
 
 	public void popFighter()
 	{

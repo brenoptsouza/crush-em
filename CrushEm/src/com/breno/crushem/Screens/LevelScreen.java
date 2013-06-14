@@ -27,6 +27,7 @@ import com.breno.crushem.ArmyType;
 import com.breno.crushem.Battlefield;
 import com.breno.crushem.GameObject;
 import com.breno.crushem.MainGame;
+import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
 import com.breno.crushem.bean.ArmyBean;
 import com.breno.crushem.hud.BaseManagementPanel;
@@ -330,12 +331,13 @@ public class LevelScreen extends AbstractScreen
 		float mCurrentScaleFac;
 		private GameObject mFighter;
 		final Vector3 battlefieldCoord = new Vector3();
+		private MilitaryBuilding mCurrentBuilding;
 		
 		@Override
 		public void touchDownFighter(float x, float y, FighterProgressButton button)
 		{
-			System.out.println("TOP BAR BUTTON");
-			mFighter = GameFactory.createFighter(button.mFighterType, Team.HOME, mGame.assetMgr);
+			mCurrentBuilding = button.getFirstAvailableBuilding();
+			mFighter = mCurrentBuilding.getFighter(mGame.assetMgr);
 			mFighterGhost.setDrawable(mFighter.getDrawable());
 			mFighterGhost.setColor(1, 1, 1, 0.6f);
 			
@@ -389,12 +391,13 @@ public class LevelScreen extends AbstractScreen
 		{
 			mLaneIndicator.setVisible(false);
 			mFighterGhost.remove();
-			if(mCurrentLane >=0 && mCurrentRectangle != null)
+			if(mCurrentBuilding != null && mCurrentLane >=0 && mCurrentRectangle != null)
 			{
 				mFighter.setScale(mCurrentScaleFac);
 				mFighter.getVelocity().scl(mCurrentScaleFac);
-				GameFactory.spawnGameObject(mFighter, mCurrentLane, /*-mFighter.getWidth()*/0, (7 + mCurrentRectangle.y) + mRandom.nextInt((int)mCurrentRectangle.height-29), mBattlefieldStage, mBattlefield);
+				GameFactory.spawnGameObject(mFighter, mCurrentLane, -mFighter.getWidth(), (7 + mCurrentRectangle.y) + mRandom.nextInt((int)mCurrentRectangle.height-29), mBattlefieldStage, mBattlefield);
 				fighterButton.popFighter();
+				mCurrentBuilding.reset();
 			}
 		}
 

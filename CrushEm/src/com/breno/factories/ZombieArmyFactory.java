@@ -33,7 +33,7 @@ public class ZombieArmyFactory {
 		
 		ArmyBean zumbiArmy = new ArmyBean(ArmyType.ZOMBIE);
 		
-		zumbiArmy.setInitialCash(300);
+		zumbiArmy.setInitialCash(3000);
 		zumbiArmy.setInitialPopulation(6);
 		
 		zumbiArmy.setSupportedBuildings(new BuildingBean[] {
@@ -85,7 +85,7 @@ public class ZombieArmyFactory {
 	}
 	
 	
-	public static GameObject createGreenFighter(Team team, AssetManager assetMgr)
+	public static GameObject createGreenFighter(Team team, int level, AssetManager assetMgr)
 	{
 		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
 		// Getting the run animation frames
@@ -96,7 +96,7 @@ public class ZombieArmyFactory {
 		// Creating the gameobject
 		final GameObject greenFighter = GameFactory.createBasicGameObject(team, walkFrames.get(0), atlas);
 
-		greenFighter.setHp(320);
+		greenFighter.setHp(320 + level * 5);
 		greenFighter.setVelocity(new Vector2(team == Team.HOME ? 90 : -90, 0));
 		greenFighter.setBoundingBoxPadding(40);
 		greenFighter.setOriginX(greenFighter.getWidth() / 2);
@@ -107,7 +107,7 @@ public class ZombieArmyFactory {
 
 		// adding the actions
 		Run runAction = new Run(greenFighter, new Animation(0.09f, walkFrames));
-		MeleeAttack meleeAction = new MeleeAttack(greenFighter, new Animation(0.09f, atkFrames), 3, 0.7f);
+		MeleeAttack meleeAction = new MeleeAttack(greenFighter, new Animation(0.09f, atkFrames), 3 * level, 0.7f);
 		greenFighter.addAction(runAction);
 		greenFighter.addAction(meleeAction);
 		greenFighter.addAction(new Die(greenFighter, new Animation(0.09f, dieFrames)));
@@ -119,12 +119,12 @@ public class ZombieArmyFactory {
 		
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 		
-		bean.setCostForBuilding(505);
-		bean.setThumb("thumb-spartan-economy");
+		bean.setCostForBuilding(new int[]{230, 120, 300});
+		bean.setThumbs(new String[]{"thumb-spartan-economy", "thumb-spartan-economy", "thumb-spartan-economy"});
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
 		bean.setName("Market.");
-		bean.setTotalProgress(1);
-		bean.setCashIncrement(5);
+		bean.setTotalProgresses(new float[]{1, 0.9f, 0.5f});
+		bean.setCashIncrements(new int[]{5, 10, 15});
 		
 		return bean;
 		
@@ -134,11 +134,11 @@ public class ZombieArmyFactory {
 		
 		PopulationBuildingBean bean = new PopulationBuildingBean();
 		
-		bean.setCostForBuilding(200);
-		bean.setThumb("thumb-spartan-population");
+		bean.setCostForBuilding(new int[]{230, 120, 300});
+		bean.setThumbs(new String[]{"thumb-spartan-population", "thumb-spartan-population", "thumb-spartan-population" });
 		bean.setDescription("A mannor that increases your army's max size by 5");
 		bean.setName("Mannor.");
-		bean.setPopulationIncrement(5);
+		bean.setPopulationIncrements(new int[]{5, 6, 7});
 		
 		return bean;
 		
@@ -148,11 +148,11 @@ public class ZombieArmyFactory {
 		
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 		
-		bean.setCostForBuilding(575);
-		bean.setThumb("thumb-spartan-green-fighter");
+		bean.setCostForBuilding(new int[]{230, 120, 300});
+		bean.setThumbs(new String[]{"thumb-spartan-green-fighter","thumb-spartan-green-fighter","thumb-spartan-green-fighter"});
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Sewers");
-		bean.setTotalProgress(5);
+		bean.setTotalProgresses(new float[]{5, 5, 4});
 		bean.setType(BuildingType.SPARTAN_GREEN_GUY_FOR_TEST);
 		
 		return bean;

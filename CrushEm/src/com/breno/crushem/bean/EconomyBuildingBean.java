@@ -4,18 +4,20 @@ import com.breno.crushem.BuildingSuperType;
 
 public class EconomyBuildingBean extends BuildingBean {
 
-	private int mCashIncrement;
+	//The cash increment given the building's current level
+	private int[] mCashIncrement;
 	
 	public EconomyBuildingBean() {
 		super();
+		mCashIncrement = new int[3];
 		setSuperType(BuildingSuperType.ECONOMIY);
 	}
 
-	public int getCashIncrement() {
-		return mCashIncrement;
+	public int getCashIncrement(int level) {
+		return mCashIncrement[level-1];
 	}
 
-	public void setCashIncrement(int mCashIncrement) {
+	public void setCashIncrements(int[] mCashIncrement) {
 		this.mCashIncrement = mCashIncrement;
 	}
 	

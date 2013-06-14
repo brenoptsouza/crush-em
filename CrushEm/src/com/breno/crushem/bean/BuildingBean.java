@@ -13,16 +13,23 @@ import com.breno.crushem.BuildingSuperType;
 public class BuildingBean {
 	
 	private BuildingSuperType mSuperType;
-	private int mCostForBuilding;
+	private int[] mCostForBuilding;
 	private String mDescription;
-	private String mThumb;
 	private String mName;
-	private float mTotalProgress;
+	//These arrays store data relative to the building's current level
+	private String[] mThumb;
+	private float[] mTotalProgress;
 	
-	public float getTotalProgress() {
-		return mTotalProgress;
+	public BuildingBean()
+	{
+		mThumb = new String[3];
+		mTotalProgress = new float[3];
 	}
-	public void setTotalProgress(float mTotalProgress) {
+	
+	public float getTotalProgress(int level) {
+		return mTotalProgress[level-1];
+	}
+	public void setTotalProgresses(float[] mTotalProgress) {
 		this.mTotalProgress = mTotalProgress;
 	}
 	public BuildingSuperType getSuperType() {
@@ -31,10 +38,10 @@ public class BuildingBean {
 	public void setSuperType(BuildingSuperType mSuperType) {
 		this.mSuperType = mSuperType;
 	}
-	public int getCostForBuilding() {
-		return mCostForBuilding;
+	public int getCostForBuilding(int level) {
+		return mCostForBuilding[level-1];
 	}
-	public void setCostForBuilding(int mCostForBuilding) {
+	public void setCostForBuilding(int[] mCostForBuilding) {
 		this.mCostForBuilding = mCostForBuilding;
 	}
 	public String getDescription() {
@@ -43,10 +50,10 @@ public class BuildingBean {
 	public void setDescription(String mDescription) {
 		this.mDescription = mDescription;
 	}
-	public String getThumb() {
-		return mThumb;
+	public String getThumb(int level) {
+		return mThumb[level-1];
 	}
-	public void setThumb(String mThumb) {
+	public void setThumbs(String[] mThumb) {
 		this.mThumb = mThumb;
 	}
 	public String getName() {

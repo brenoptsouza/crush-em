@@ -42,14 +42,17 @@ public class ArmyBase
 	
 	public void update(float delta)
 	{
-		// TODO: Analisar uma maneira de agrupar os buildings (O ArmyBase não precisa saber necessariamente a distinção entre eles...)
+		// TODO: Analisar uma maneira de agrupar os buildings (O ArmyBase nao precisa saber necessariamente a distincao entre eles...)
 		final Iterator<Building> i = mBuildings.iterator();
+		int populationCount = 0;
 		while(i.hasNext())
 		{
 			final Building building = i.next();
 			building.update(delta);
+			if(building.getBuildingSuperType() == BuildingSuperType.POPULATION)
+				populationCount += ((PopulationBuilding)building).mSupportedPopulation;
 		}
-		
+		mSupportedPopulation = populationCount;
 		final Iterator<MilitaryBuilding> j = mMilitaryBuildings.iterator();
 		while(j.hasNext())
 		{
@@ -78,7 +81,7 @@ public class ArmyBase
 		mBuildings.add(building);
 	}
 	
-	public boolean consumeAvailableFighter(BuildingType fighterType)
+	/*public boolean consumeAvailableFighter(BuildingType fighterType)
 	{
 		
 		// TODO: Deixar com o CPU a mesma forma de iteração como foi feito com o Player
@@ -93,7 +96,7 @@ public class ArmyBase
 			}
 		}
 		return false;
-	}
+	}*/
 
 	public ArmyType getArmyType()
 	{

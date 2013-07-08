@@ -20,7 +20,6 @@ public class ArmyBean {
 	
 	public ArmyBean(ArmyType mArmyType) {
 		this.mArmyType = mArmyType;
-		
 	}
 
 	public BuildingBean[] getSupportedBuildings() {

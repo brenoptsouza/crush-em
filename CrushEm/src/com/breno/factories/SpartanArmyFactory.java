@@ -48,11 +48,11 @@ public class SpartanArmyFactory
 
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 
-		bean.setCostForBuilding(new int[]{150, 120, 300});
+		bean.setCostForBuilding(new int[]{ 150, 120, 300 });
 		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Blue-Furious academy");
-		bean.setTotalProgresses(new float[] { 3, 3, 2.8f });
+		bean.setTotalProgresses(new float[] { 300, 300, 280 });
 		bean.setType(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
 
 		return bean;

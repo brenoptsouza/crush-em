@@ -66,7 +66,7 @@ public abstract class Building
 	
 	public void update(float delta)
 	{
-		if(mProgress< mTotalProgress)
+		if(mProgress < mTotalProgress)
 		{
 			mProgress += delta;
 			mProgress = mProgress >= mTotalProgress ? mTotalProgress : mProgress;  

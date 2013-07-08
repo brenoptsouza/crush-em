@@ -152,7 +152,7 @@ public class ZombieArmyFactory {
 		bean.setThumbs(new String[]{"thumb-spartan-green-fighter","thumb-spartan-green-fighter","thumb-spartan-green-fighter"});
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Sewers");
-		bean.setTotalProgresses(new float[]{5, 5, 4});
+		bean.setTotalProgresses(new float[]{ 500, 500, 400});
 		bean.setType(BuildingType.SPARTAN_GREEN_GUY_FOR_TEST);
 		
 		return bean;

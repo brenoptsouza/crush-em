@@ -44,7 +44,7 @@ public class ArmyBase
 	{
 		// TODO: Analisar uma maneira de agrupar os buildings (O ArmyBase nao precisa saber necessariamente a distincao entre eles...)
 		final Iterator<Building> i = mBuildings.iterator();
-		int populationCount = 0;
+		int populationCount = mSupportedPopulation;
 		while(i.hasNext())
 		{
 			final Building building = i.next();

@@ -51,7 +51,7 @@ public class PirateArmyFactory
 		bean.setThumbs(new String[] { "thumb-spartan-red-fighter", "thumb-spartan-red-fighter", "thumb-spartan-red-fighter" });
 		bean.setDescription("Trains the red-blazes, it takes some time but they are strong and well armored.");
 		bean.setName("Red-blazes barracks.");
-		bean.setTotalProgresses(new float[] { 500, 600, 800 });
+		bean.setTotalProgresses(new float[] { 5, 6, 8 });
 		bean.setType(BuildingType.SPARTAN_RED_GUY_FOR_TEST);
 
 		return bean;

@@ -52,7 +52,7 @@ public class SpartanArmyFactory
 		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Blue-Furious academy");
-		bean.setTotalProgresses(new float[] { 300, 300, 280 });
+		bean.setTotalProgresses(new float[] { 3, 4, 5 });
 		bean.setType(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
 
 		return bean;

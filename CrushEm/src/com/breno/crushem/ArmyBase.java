@@ -81,23 +81,6 @@ public class ArmyBase
 		mBuildings.add(building);
 	}
 	
-	/*public boolean consumeAvailableFighter(BuildingType fighterType)
-	{
-		
-		// TODO: Deixar com o CPU a mesma forma de iteração como foi feito com o Player
-		final Iterator<MilitaryBuilding> j = mMilitaryBuildings.iterator();
-		while(j.hasNext())
-		{
-			final MilitaryBuilding militaryBuilding = j.next();
-			if(militaryBuilding.isFighterReady())
-			{
-				militaryBuilding.getFighter();
-				return true;
-			}
-		}
-		return false;
-	}*/
-
 	public ArmyType getArmyType()
 	{
 		return mArmy;

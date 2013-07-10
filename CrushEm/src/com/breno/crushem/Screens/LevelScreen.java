@@ -434,11 +434,15 @@ public class LevelScreen extends AbstractScreen
 	}
 
 	public void backLevelScreen() {
-		System.out.println("BACK");
+		
+		// TODO: Talvez seja necessario usar a mesma instancia ja criada... (performance)
+		this.mGame.setScreen(new MainMenuScreen(mGame));
+		
 	}
 
-	public void restartLevelScreen() {
-		System.out.println("RESTART");
+	public void replayLevelScreen() {
+		// TODO: Criar metodos de reset para nao ter que criar novas screens
+		System.out.println("REPLAY");
 		
 	}
 

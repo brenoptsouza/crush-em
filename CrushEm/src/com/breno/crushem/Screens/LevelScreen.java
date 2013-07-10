@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -91,7 +90,6 @@ public class LevelScreen extends AbstractScreen
 		switch (mGameStatus) {
 		
 		case RUNNING:
-			
 			mOrthoCamController.update(delta);
 			mBattlefield.update(delta);
 			mBattlefieldStage.act();
@@ -99,6 +97,7 @@ public class LevelScreen extends AbstractScreen
 			break;
 		
 		case FINALIZED:
+			// TODO
 			break;
 		
 		}
@@ -207,7 +206,7 @@ public class LevelScreen extends AbstractScreen
 		mTopBar = new TopBar(mGame.assetMgr, mBattlefield, new TopBarButtonsInputListener());
 		mMinimap = new Minimap(mBattlefield, mBattlefieldStage.getCamera(), levelWidth);
 		mManagementPanel = new BaseManagementPanel(mBattlefield, mGame.assetMgr);
-		mVictoryPanel = new VictoryDefeatPanel(mGame.assetMgr);
+		mVictoryPanel = new VictoryDefeatPanel(mGame.assetMgr, this);
 		
 		mHudStage = new Stage(0,0,true);
 		mHudStage.addActor(mVictoryPanel);
@@ -431,6 +430,15 @@ public class LevelScreen extends AbstractScreen
 				mManagementPanel.animateIn();
 
 		}
+		
+	}
+
+	public void backLevelScreen() {
+		System.out.println("BACK");
+	}
+
+	public void restartLevelScreen() {
+		System.out.println("RESTART");
 		
 	}
 

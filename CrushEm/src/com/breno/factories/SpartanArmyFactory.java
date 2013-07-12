@@ -34,26 +34,61 @@ public class SpartanArmyFactory
 
 		ArmyBean spartanArmy = new ArmyBean(ArmyType.SPARTAN);
 
-		spartanArmy.setInitialCash(4000);
+		spartanArmy.setInitialCash(1200);
 		spartanArmy.setInitialPopulation(3);
 
-		spartanArmy.setSupportedBuildings(new BuildingBean[] { createSpartanBlueFighterBuilding(), createSpartanEconomyBuilding(), createSpartanPopulationBuilding() });
+		spartanArmy.setSupportedBuildings(new BuildingBean[] { 
+				createSpartanSoldierBuilding(),
+				createSpartanDefensorBuilding(),
+				createSpartanChampionBuilding(),
+				createSpartanEconomyBuilding(), 
+				createSpartanPopulationBuilding() });
 
 		return spartanArmy;
 
 	}
 
-	private static BuildingBean createSpartanBlueFighterBuilding()
+	private static BuildingBean createSpartanSoldierBuilding()
 	{
 
 		MilitaryBuildingBean bean = new MilitaryBuildingBean();
 
-		bean.setCostForBuilding(new int[]{ 150, 120, 300 });
+		bean.setCostForBuilding(new int[]{ 200 });
 		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
-		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
-		bean.setName("Blue-Furious academy");
-		bean.setTotalProgresses(new float[] { 3, 4, 5 });
-		bean.setType(BuildingType.SPARTAN_BLUE_GUY_FOR_TEST);
+		bean.setDescription("The spartan soldiers are brave fighter with balanced strenght and life.");
+		bean.setName("Spartan Soldier Academy");
+		bean.setTotalProgresses(new float[] { 3 });
+		bean.setType(BuildingType.SPARTAN_SOLDIER);
+
+		return bean;
+	}
+	
+	private static BuildingBean createSpartanDefensorBuilding()
+	{
+
+		MilitaryBuildingBean bean = new MilitaryBuildingBean();
+
+		bean.setCostForBuilding(new int[]{ 200 });
+		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
+		bean.setDescription("The spartan defensor are resistent fighters but can inflict only small amount of damage.");
+		bean.setName("Spartan Defensor Academy");
+		bean.setTotalProgresses(new float[] { 6 });
+		bean.setType(BuildingType.SPARTAN_DEFENSOR);
+
+		return bean;
+	}
+	
+	private static BuildingBean createSpartanChampionBuilding()
+	{
+
+		MilitaryBuildingBean bean = new MilitaryBuildingBean();
+
+		bean.setCostForBuilding(new int[]{ 300 });
+		bean.setThumbs(new String[] { "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter", "thumb-spartan-blue-fighter" });
+		bean.setDescription("The spartan champions are the greatest fighters from the spartan army.");
+		bean.setName("Spartan Champion Academy");
+		bean.setTotalProgresses(new float[] { 15 });
+		bean.setType(BuildingType.SPARTAN_CHAMPION);
 
 		return bean;
 	}
@@ -98,7 +133,7 @@ public class SpartanArmyFactory
 		return spartanBaseBg;
 	}
 
-	public static GameObject createBlueFighter(Team team, int level, AssetManager assetMgr)
+	public static GameObject createSpartanSoldier(Team team, int level, AssetManager assetMgr)
 	{
 		// final Texture blueFighterTexture =
 		// assetMgr.get("data/fighters_blue.png", Texture.class);
@@ -113,7 +148,7 @@ public class SpartanArmyFactory
 
 		blueFighter.setHp(50 + (10 * level));
 		blueFighter.setVelocity(new Vector2(team == Team.HOME ? 120 : -120, 0));
-		blueFighter.setBoundingBoxPadding(40);
+		blueFighter.setBoundingBoxPadding(30);
 		blueFighter.setOriginX(blueFighter.getWidth() / 2);
 		blueFighter.setOriginY(blueFighter.getHeight() / 2);
 		blueFighter.setTeam(team);
@@ -123,6 +158,70 @@ public class SpartanArmyFactory
 		// adding the actions
 		Run runAction = new Run(blueFighter, new Animation(0.09f, walkFrames));
 		MeleeAttack meleeAction = new MeleeAttack(blueFighter, new Animation(0.09f, atkFrames), 10 + (5 * level), 0.7f);
+		blueFighter.addAction(runAction);
+		blueFighter.addAction(meleeAction);
+		blueFighter.addAction(new Die(blueFighter, new Animation(0.09f, dieFrames)));
+
+		return blueFighter;
+	}
+	
+	public static GameObject createSpartanDefensor(Team team, int level, AssetManager assetMgr)
+	{
+		// final Texture blueFighterTexture =
+		// assetMgr.get("data/fighters_blue.png", Texture.class);
+		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
+		// Getting the run animation frames
+		final Array<AtlasRegion> walkFrames = atlas.findRegions("blue-fighter-run");
+		final Array<AtlasRegion> atkFrames = atlas.findRegions("blue-fighter-attack");
+		final Array<AtlasRegion> dieFrames = atlas.findRegions("blue-fighter-die");
+
+		// Creating the gameobject
+		final GameObject blueFighter = GameFactory.createBasicGameObject(team, walkFrames.get(0), atlas);
+
+		blueFighter.setHp(120 + (30 * level));
+		blueFighter.setVelocity(new Vector2(team == Team.HOME ? 40 : -40, 0));
+		blueFighter.setBoundingBoxPadding(30);
+		blueFighter.setOriginX(blueFighter.getWidth() / 2);
+		blueFighter.setOriginY(blueFighter.getHeight() / 2);
+		blueFighter.setTeam(team);
+		if (team == Team.AWAY)
+			blueFighter.setScaleX(-1);
+
+		// adding the actions
+		Run runAction = new Run(blueFighter, new Animation(0.09f, walkFrames));
+		MeleeAttack meleeAction = new MeleeAttack(blueFighter, new Animation(0.09f, atkFrames), 5 + (2 * level), 0.6f);
+		blueFighter.addAction(runAction);
+		blueFighter.addAction(meleeAction);
+		blueFighter.addAction(new Die(blueFighter, new Animation(0.09f, dieFrames)));
+
+		return blueFighter;
+	}
+	
+	public static GameObject createSpartanChampion(Team team, int level, AssetManager assetMgr)
+	{
+		// final Texture blueFighterTexture =
+		// assetMgr.get("data/fighters_blue.png", Texture.class);
+		final TextureAtlas atlas = assetMgr.get("data/game_screen.atlas", TextureAtlas.class);
+		// Getting the run animation frames
+		final Array<AtlasRegion> walkFrames = atlas.findRegions("blue-fighter-run");
+		final Array<AtlasRegion> atkFrames = atlas.findRegions("blue-fighter-attack");
+		final Array<AtlasRegion> dieFrames = atlas.findRegions("blue-fighter-die");
+
+		// Creating the gameobject
+		final GameObject blueFighter = GameFactory.createBasicGameObject(team, walkFrames.get(0), atlas);
+
+		blueFighter.setHp(100 + (30 * level));
+		blueFighter.setVelocity(new Vector2(team == Team.HOME ? 130 : -130, 0));
+		blueFighter.setBoundingBoxPadding(30);
+		blueFighter.setOriginX(blueFighter.getWidth() / 2);
+		blueFighter.setOriginY(blueFighter.getHeight() / 2);
+		blueFighter.setTeam(team);
+		if (team == Team.AWAY)
+			blueFighter.setScaleX(-1);
+
+		// adding the actions
+		Run runAction = new Run(blueFighter, new Animation(0.09f, walkFrames));
+		MeleeAttack meleeAction = new MeleeAttack(blueFighter, new Animation(0.09f, atkFrames), 15 + (10 * level), 0.8f);
 		blueFighter.addAction(runAction);
 		blueFighter.addAction(meleeAction);
 		blueFighter.addAction(new Die(blueFighter, new Animation(0.09f, dieFrames)));

@@ -33,7 +33,7 @@ public class PirateArmyFactory
 	{
 		ArmyBean pirateArmy = new ArmyBean(ArmyType.PIRATE);
 
-		pirateArmy.setInitialCash(5000);
+		pirateArmy.setInitialCash(2500);
 		pirateArmy.setInitialPopulation(2);
 
 		pirateArmy.setSupportedBuildings(new BuildingBean[] { createRedFighterBuilding(), createPirateEconomyBuilding(), createPiratePopulationBuilding() });

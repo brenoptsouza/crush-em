@@ -33,7 +33,7 @@ public class ZombieArmyFactory {
 		
 		ArmyBean zumbiArmy = new ArmyBean(ArmyType.ZOMBIE);
 		
-		zumbiArmy.setInitialCash(3000);
+		zumbiArmy.setInitialCash(1500);
 		zumbiArmy.setInitialPopulation(6);
 		
 		zumbiArmy.setSupportedBuildings(new BuildingBean[] {

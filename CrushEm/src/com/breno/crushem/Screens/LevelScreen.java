@@ -35,15 +35,18 @@ import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
 import com.breno.crushem.hud.TopBar;
 import com.breno.crushem.hud.TopBar.TopBarInputListener;
+import com.breno.crushem.hud.VictoryDefeatPanel;
 import com.breno.factories.GameFactory;
 
 public class LevelScreen extends AbstractScreen
 {
 
 	public static final boolean DEBUG = false;
-	public static final int GAME_WIDTH = 1280;
-	public static final int GAME_HEIGHT = 720;
 	
+	enum GameStatus {
+		RUNNING,
+		FINALIZED;
+	}
 	
 	FPSLogger mFPSLogger;
 	Vector3 mCamVelocity;
@@ -62,6 +65,8 @@ public class LevelScreen extends AbstractScreen
 	Rectangle scissors = new Rectangle();
 	Rectangle clipBounds = new Rectangle();
 	BaseManagementPanel mManagementPanel;
+	VictoryDefeatPanel mVictoryPanel;
+	GameStatus mGameStatus;
 	
 	ArmyBean mHomeArmy;
 	ArmyBean mAwayArmy;
@@ -72,6 +77,8 @@ public class LevelScreen extends AbstractScreen
 		
 		mHomeArmy = homeArmy;
 		mAwayArmy = awayArmy;
+		mGameStatus = GameStatus.RUNNING;
+		
 	}
 
 	@Override
@@ -80,10 +87,20 @@ public class LevelScreen extends AbstractScreen
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		mOrthoCamController.update(delta);
+		switch (mGameStatus) {
 		
-		mBattlefield.update(delta);
-		mBattlefieldStage.act();
+		case RUNNING:
+			mOrthoCamController.update(delta);
+			mBattlefield.update(delta);
+			mBattlefieldStage.act();
+			mCpu.update(delta);
+			break;
+		
+		case FINALIZED:
+			// TODO
+			break;
+		
+		}
 		
 		final OrthographicCamera cam = (OrthographicCamera) mBattlefieldStage.getCamera();
 		cam.update();
@@ -105,10 +122,11 @@ public class LevelScreen extends AbstractScreen
 		
 		mHudStage.act();
 		mHudStage.draw();
-		mCpu.update(delta);
 		//mFPSLogger.log();
 		ScissorStack.popScissors();
+		
 	}
+
 
 	@Override
 	public void resize(int width, int height)
@@ -161,7 +179,8 @@ public class LevelScreen extends AbstractScreen
 	
 	public void declareWinner(ArmyBase mPlayerBase) {
 
-		System.out.println(mPlayerBase.getTeam());
+		mVictoryPanel.showWinner(mPlayerBase.getTeam());
+		mGameStatus = GameStatus.FINALIZED;
 	}
 
 
@@ -187,12 +206,15 @@ public class LevelScreen extends AbstractScreen
 		mTopBar = new TopBar(mGame.assetMgr, mBattlefield, new TopBarButtonsInputListener());
 		mMinimap = new Minimap(mBattlefield, mBattlefieldStage.getCamera(), levelWidth);
 		mManagementPanel = new BaseManagementPanel(mBattlefield, mGame.assetMgr);
+		mVictoryPanel = new VictoryDefeatPanel(mGame.assetMgr, this);
 		
 		mHudStage = new Stage(0,0,true);
+		mHudStage.addActor(mVictoryPanel);
 		mHudStage.addActor(mMinimap);
 		mHudStage.addActor(mLaneIndicator);
 		mHudStage.addActor(mTopBar);
 		mHudStage.addActor(mManagementPanel);
+
 		
 		mCamVelocity = new Vector3(0, 0, 0);
 		mFPSLogger = new FPSLogger();
@@ -408,6 +430,19 @@ public class LevelScreen extends AbstractScreen
 				mManagementPanel.animateIn();
 
 		}
+		
+	}
+
+	public void backLevelScreen() {
+		
+		// TODO: Talvez seja necessario usar a mesma instancia ja criada... (performance)
+		this.mGame.setScreen(new MainMenuScreen(mGame));
+		
+	}
+
+	public void replayLevelScreen() {
+		// TODO: Criar metodos de reset para nao ter que criar novas screens
+		System.out.println("REPLAY");
 		
 	}
 

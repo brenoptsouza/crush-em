@@ -33,7 +33,7 @@ public class ZombieArmyFactory {
 		
 		ArmyBean zumbiArmy = new ArmyBean(ArmyType.ZOMBIE);
 		
-		zumbiArmy.setInitialCash(3000);
+		zumbiArmy.setInitialCash(1500);
 		zumbiArmy.setInitialPopulation(6);
 		
 		zumbiArmy.setSupportedBuildings(new BuildingBean[] {
@@ -152,7 +152,7 @@ public class ZombieArmyFactory {
 		bean.setThumbs(new String[]{"thumb-spartan-green-fighter","thumb-spartan-green-fighter","thumb-spartan-green-fighter"});
 		bean.setDescription("The gummy fighters are weak but can take lots of damage.");
 		bean.setName("Sewers");
-		bean.setTotalProgresses(new float[]{5, 5, 4});
+		bean.setTotalProgresses(new float[]{ 5, 5, 4 });
 		bean.setType(BuildingType.SPARTAN_GREEN_GUY_FOR_TEST);
 		
 		return bean;

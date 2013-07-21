@@ -33,7 +33,7 @@ public class PirateArmyFactory
 	{
 		ArmyBean pirateArmy = new ArmyBean(ArmyType.PIRATE);
 
-		pirateArmy.setInitialCash(5000);
+		pirateArmy.setInitialCash(2500);
 		pirateArmy.setInitialPopulation(2);
 
 		pirateArmy.setSupportedBuildings(new BuildingBean[] { createRedFighterBuilding(), createPirateEconomyBuilding(), createPiratePopulationBuilding() });
@@ -51,7 +51,7 @@ public class PirateArmyFactory
 		bean.setThumbs(new String[] { "thumb-spartan-red-fighter", "thumb-spartan-red-fighter", "thumb-spartan-red-fighter" });
 		bean.setDescription("Trains the red-blazes, it takes some time but they are strong and well armored.");
 		bean.setName("Red-blazes barracks.");
-		bean.setTotalProgresses(new float[] { 9, 9, 8.5f });
+		bean.setTotalProgresses(new float[] { 5, 6, 8 });
 		bean.setType(BuildingType.SPARTAN_RED_GUY_FOR_TEST);
 
 		return bean;

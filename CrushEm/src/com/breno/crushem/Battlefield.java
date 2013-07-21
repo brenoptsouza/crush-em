@@ -156,12 +156,12 @@ public class Battlefield
 		mCpuBase.update(delta);
 		
 		final int homeHp = mHomeBaseWall.getHp();
-		if(homeHp < 0) {
+		if(homeHp <= 0) {
 			mLevelScreen.declareWinner(mCpuBase);
 		}
 		
 		final int awayHp = mAwayBaseWall.getHp();
-		if(awayHp < 0) {
+		if(awayHp <= 0) {
 			mLevelScreen.declareWinner(mPlayerBase);
 		}
 		

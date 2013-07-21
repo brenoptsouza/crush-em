@@ -144,9 +144,15 @@ public class GameFactory
 	{
 		switch (type)
 		{
-		case SPARTAN_BLUE_GUY_FOR_TEST:
-			return SpartanArmyFactory.createBlueFighter(team, level, assetMgr);
+		case SPARTAN_SOLDIER:
+			return SpartanArmyFactory.createSpartanSoldier(team, level, assetMgr);
 			
+		case SPARTAN_DEFENSOR:
+			return SpartanArmyFactory.createSpartanDefensor(team, level, assetMgr);
+			
+		case SPARTAN_CHAMPION:
+			return SpartanArmyFactory.createSpartanChampion(team, level, assetMgr);
+					
 		case SPARTAN_RED_GUY_FOR_TEST:
 			return PirateArmyFactory.createRedFighter(team, level, assetMgr);
 			

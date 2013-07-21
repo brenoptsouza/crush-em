@@ -191,7 +191,7 @@ public class BaseManagementPanel extends Group
 				@Override
 				public void touchUp(InputEvent event, float x, float y, int pointer, int button)
 				{
-					final int cost = mBuildingBean.getCostForBuilding();
+					final int cost = mBuildingBean.getCostForBuilding(1);
 					if(mBattlefield.getPlayerBase().getCash() >= cost)
 					{
 						mBattlefield.getPlayerBase().spendCash(cost);
@@ -209,7 +209,7 @@ public class BaseManagementPanel extends Group
 							break;
 						
 						case POPULATION:
-							mBattlefield.getPlayerBase().increasePopulationBy(((PopulationBuildingBean) mBuildingBean).getPopulationIncrement());
+							mBattlefield.getPlayerBase().increasePopulationBy(((PopulationBuildingBean) mBuildingBean).getPopulationIncrement(1));
 							break;
 						
 						}
@@ -222,7 +222,7 @@ public class BaseManagementPanel extends Group
 		{
 			mArmyBase = armyBase;
 			mBuildingBean = buildingBean;
-			final int cost = buildingBean.getCostForBuilding();
+			final int cost = buildingBean.getCostForBuilding(1);
 			mThumb.setDrawable(thumb);
 			mThumb.setWidth(thumb.getRegion().getRegionWidth());
 			mThumb.setHeight(thumb.getRegion().getRegionHeight());
@@ -241,7 +241,7 @@ public class BaseManagementPanel extends Group
 		@Override
 		public void act(float delta)
 		{
-			// FIXME - O Building bean só é "setado" quando se clica em no botão (NullPointer)
+			// FIXME - O Building bean nao "setado" quando se clica em no botao (NullPointer)
 			//mBuildButton.setDisabled(mBattlefield.getPlayerBase().getCash() < mBuildingBean.getCostForBuilding());
 			super.act(delta);
 		}
@@ -360,9 +360,9 @@ public class BaseManagementPanel extends Group
 			final TextureAtlas atlas = mAssetManager.get("data/game_screen.atlas", TextureAtlas.class);
 			
 			mBuilding = buildingBean;
-			mCost = buildingBean.getCostForBuilding();
+			mCost = buildingBean.getCostForBuilding(1);
 			mBg = new Image(atlas.createPatch("thumb-portrait"));
-			final Image thumb = new Image(atlas.findRegion(mBuilding.getThumb()));
+			final Image thumb = new Image(atlas.findRegion(mBuilding.getThumb(1)));
 			mThumb = thumb;
 			mBuilding = buildingBean;
 			final Image coins = new Image(atlas.findRegion("coins"));

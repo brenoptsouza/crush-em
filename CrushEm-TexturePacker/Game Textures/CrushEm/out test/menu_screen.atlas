@@ -1,0 +1,47 @@
+
+menu_screen.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+start-button-down
+  rotate: false
+  xy: 1, 119
+  size: 368, 128
+  orig: 368, 128
+  offset: 0, 0
+  index: -1
+start-button-up
+  rotate: false
+  xy: 371, 119
+  size: 368, 128
+  orig: 368, 128
+  offset: 0, 0
+  index: -1
+music-button-checked
+  rotate: false
+  xy: 1, 60
+  size: 57, 57
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+music-button-up
+  rotate: false
+  xy: 741, 190
+  size: 57, 57
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+sound-button-checked
+  rotate: false
+  xy: 1, 1
+  size: 57, 57
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+sound-button-up
+  rotate: false
+  xy: 60, 60
+  size: 57, 57
+  orig: 57, 57
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,161 @@
+
+game_screen.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+lane-indicator
+  rotate: false
+  xy: 1, 433
+  size: 628, 65
+  orig: 628, 65
+  offset: 0, 0
+  index: -1
+top-bar-bg
+  rotate: false
+  xy: 1, 268
+  size: 351, 163
+  split: 167, 183, 7, 18
+  pad: 10, 10, 6, 19
+  orig: 351, 163
+  offset: 0, 0
+  index: -1
+blue-fighter-die
+  rotate: false
+  xy: 1, 137
+  size: 128, 129
+  orig: 128, 129
+  offset: 0, 0
+  index: 2
+blue-fighter-die
+  rotate: false
+  xy: 354, 302
+  size: 128, 129
+  orig: 128, 129
+  offset: 0, 0
+  index: 4
+blue-fighter-attack
+  rotate: false
+  xy: 1, 7
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+blue-fighter-attack
+  rotate: false
+  xy: 131, 138
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+blue-fighter-attack
+  rotate: false
+  xy: 484, 303
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+blue-fighter-attack
+  rotate: false
+  xy: 131, 8
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+blue-fighter-attack
+  rotate: false
+  xy: 261, 138
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+blue-fighter-attack
+  rotate: false
+  xy: 261, 8
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+blue-fighter-die
+  rotate: false
+  xy: 631, 370
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+blue-fighter-die
+  rotate: false
+  xy: 761, 370
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+blue-fighter-die
+  rotate: false
+  xy: 891, 370
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+blue-fighter-die
+  rotate: false
+  xy: 391, 172
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+blue-fighter-run
+  rotate: false
+  xy: 391, 42
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+blue-fighter-run
+  rotate: false
+  xy: 521, 173
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2
+blue-fighter-run
+  rotate: false
+  xy: 521, 43
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 3
+blue-fighter-run
+  rotate: false
+  xy: 651, 240
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 4
+blue-fighter-run
+  rotate: false
+  xy: 651, 110
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 5
+blue-fighter-run
+  rotate: false
+  xy: 781, 240
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 6
+thumb-spartan-blue-fighter
+  rotate: false
+  xy: 781, 117
+  size: 122, 121
+  orig: 122, 121
+  offset: 0, 0
+  index: -1
+fighter-progress
+  rotate: false
+  xy: 1, 1
+  size: 4, 4
+  orig: 4, 4
+  offset: 0, 0
+  index: -1

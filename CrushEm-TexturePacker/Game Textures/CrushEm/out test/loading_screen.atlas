@@ -1,0 +1,12 @@
+
+loading_screen.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+progress
+  rotate: false
+  xy: 1, 1
+  size: 180, 5
+  orig: 180, 5
+  offset: 0, 0
+  index: -1

@@ -1,6 +1,5 @@
 package com.breno.crushem.bean;
 
-import com.breno.crushem.ArmyBase;
 import com.breno.crushem.Building;
 import com.breno.crushem.BuildingSuperType;
 

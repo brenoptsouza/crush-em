@@ -1,5 +1,7 @@
 package com.breno.crushem.factories;
 
+import static com.breno.crushem.StatisticalBaseConstants.*;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,13 +35,12 @@ public class ZombieArmyFactory {
 		
 		ArmyBean zumbiArmy = new ArmyBean(ArmyType.ZOMBIE);
 		
-		zumbiArmy.setInitialCash(1500);
-		zumbiArmy.setInitialPopulation(6);
+		zumbiArmy.setInitialCash(ARMY_BASE_INITIAL_GOLD);
+		zumbiArmy.setInitialPopulation(2 * ARMY_BASE_INITIAL_POPULATION);
 		
 		zumbiArmy.setSupportedBuildings(new BuildingBean[] {
 				createZombieGreenFighterBuilding(), 
-				createZombieEconomyBuilding(), 
-				createZombiePopulationBuilding()});
+				createZombieEconomyBuilding()});
 		
 		return zumbiArmy;
 		
@@ -59,7 +60,7 @@ public class ZombieArmyFactory {
 			spartanBase.setScaleX(-1);
 		}
 		spartanBase.setHpBarTopMargin(200);
-		spartanBase.setHp(500);
+		spartanBase.setHp(ARMY_BASE_INITIAL_HP);
 		spartanBase.setBoundingBoxPadding(20);
 		spartanBase.setLane(-1);
 
@@ -119,26 +120,12 @@ public class ZombieArmyFactory {
 		
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 		
-		bean.setCostForBuilding(new int[]{230, 120, 300});
-		bean.setThumbs(new String[]{"thumb-spartan-economy", "thumb-spartan-economy", "thumb-spartan-economy"});
-		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
+		bean.setCostForBuilding(new int[]{ ECONOMY_BUILDING_COST });
+		bean.setThumbs(new String[]{"thumb-spartan-economy" });
+		bean.setDescription("The Market increases the cash income for your base. Adds +" + ECONOMY_BUILDING_CASH_INCREMENT +" gold to your funds per second");
 		bean.setName("Market.");
-		bean.setTotalProgresses(new float[]{1, 0.9f, 0.5f});
-		bean.setCashIncrements(new int[]{5, 10, 15});
-		
-		return bean;
-		
-	}
-	
-	private static PopulationBuildingBean createZombiePopulationBuilding() {
-		
-		PopulationBuildingBean bean = new PopulationBuildingBean();
-		
-		bean.setCostForBuilding(new int[]{230, 120, 300});
-		bean.setThumbs(new String[]{"thumb-spartan-population", "thumb-spartan-population", "thumb-spartan-population" });
-		bean.setDescription("A mannor that increases your army's max size by 5");
-		bean.setName("Mannor.");
-		bean.setPopulationIncrements(new int[]{5, 6, 7});
+		bean.setTotalProgresses(new float[]{ ECONOMY_BUILDING_TOTAL_PROGRESS });
+		bean.setCashIncrements(new int[]{ ECONOMY_BUILDING_CASH_INCREMENT });
 		
 		return bean;
 		

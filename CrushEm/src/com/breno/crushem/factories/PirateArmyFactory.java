@@ -1,5 +1,6 @@
 package com.breno.crushem.factories;
 
+import static com.breno.crushem.StatisticalBaseConstants.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,10 +34,12 @@ public class PirateArmyFactory
 	{
 		ArmyBean pirateArmy = new ArmyBean(ArmyType.PIRATE);
 
-		pirateArmy.setInitialCash(2500);
-		pirateArmy.setInitialPopulation(2);
+		pirateArmy.setInitialCash((int) (1.1 * ARMY_BASE_INITIAL_GOLD));
+		pirateArmy.setInitialPopulation(ARMY_BASE_INITIAL_POPULATION);
 
-		pirateArmy.setSupportedBuildings(new BuildingBean[] { createRedFighterBuilding(), createPirateEconomyBuilding(), createPiratePopulationBuilding() });
+		pirateArmy.setSupportedBuildings(new BuildingBean[] { createRedFighterBuilding(), 
+				createPirateEconomyBuilding(), 
+				createPiratePopulationBuilding() });
 
 		return pirateArmy;
 
@@ -63,12 +66,12 @@ public class PirateArmyFactory
 
 		EconomyBuildingBean bean = new EconomyBuildingBean();
 
-		bean.setCostForBuilding(new int[]{500, 400, 450});
+		bean.setCostForBuilding(new int[]{ ECONOMY_BUILDING_COST });
 		bean.setThumbs(new String[]{"thumb-spartan-economy", "thumb-spartan-economy", "thumb-spartan-economy"});
 		bean.setDescription("The Market increases the cash income for your base. Adds +5 gold to your funds per second");
 		bean.setName("Market.");
-		bean.setTotalProgresses(new float[]{1, 1, 0.9f});
-		bean.setCashIncrements(new int[]{5, 7, 8});
+		bean.setTotalProgresses(new float[]{ ECONOMY_BUILDING_TOTAL_PROGRESS });
+		bean.setCashIncrements(new int[]{  ECONOMY_BUILDING_CASH_INCREMENT });
 
 		return bean;
 
@@ -79,11 +82,11 @@ public class PirateArmyFactory
 
 		PopulationBuildingBean bean = new PopulationBuildingBean();
 
-		bean.setCostForBuilding(new int[]{220, 75, 100});
-		bean.setThumbs(new String[]{"thumb-spartan-population", "thumb-spartan-population", "thumb-spartan-population"});
-		bean.setDescription("A mannor that increases your army's max size by 5");
+		bean.setCostForBuilding(new int[]{ POPULATION_BUILDING_COST });
+		bean.setThumbs(new String[]{"thumb-spartan-population" });
+		bean.setDescription("A mannor that increases your army's max size by " + POPULATION_BUILDING_INCREMENT);
 		bean.setName("Mannor.");
-		bean.setPopulationIncrements(new int[]{5, 6, 7});
+		bean.setPopulationIncrements(new int[]{ POPULATION_BUILDING_INCREMENT });
 
 		return bean;
 	}
@@ -102,7 +105,7 @@ public class PirateArmyFactory
 			spartanBase.setScaleX(-1);
 		}
 		spartanBase.setHpBarTopMargin(200);
-		spartanBase.setHp(500);
+		spartanBase.setHp(ARMY_BASE_INITIAL_HP);
 		spartanBase.setBoundingBoxPadding(20);
 		spartanBase.setLane(-1);
 

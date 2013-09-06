@@ -30,13 +30,13 @@ import com.breno.crushem.MainGame;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.Team;
 import com.breno.crushem.bean.ArmyBean;
+import com.breno.crushem.factories.GameFactory;
 import com.breno.crushem.hud.BaseManagementPanel;
 import com.breno.crushem.hud.FighterProgressButton;
 import com.breno.crushem.hud.Minimap;
 import com.breno.crushem.hud.TopBar;
 import com.breno.crushem.hud.TopBar.TopBarInputListener;
 import com.breno.crushem.hud.VictoryDefeatPanel;
-import com.breno.factories.GameFactory;
 
 public class LevelScreen extends AbstractScreen
 {

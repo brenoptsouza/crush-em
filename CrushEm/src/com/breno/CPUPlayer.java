@@ -18,7 +18,7 @@ import com.breno.crushem.PopulationBuilding;
 import com.breno.crushem.Team;
 import com.breno.crushem.bean.MilitaryBuildingBean;
 import com.breno.crushem.bean.PopulationBuildingBean;
-import com.breno.factories.GameFactory;
+import com.breno.crushem.factories.GameFactory;
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 public class CPUPlayer

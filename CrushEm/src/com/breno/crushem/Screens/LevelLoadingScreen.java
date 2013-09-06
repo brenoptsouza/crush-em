@@ -20,7 +20,7 @@ import com.breno.crushem.GameObjectActions.Die;
 import com.breno.crushem.GameObjectActions.MeleeAttack;
 import com.breno.crushem.GameObjectActions.Run;
 import com.breno.crushem.bean.ArmyBean;
-import com.breno.factories.GameFactory;
+import com.breno.crushem.factories.GameFactory;
 import com.sun.org.apache.xalan.internal.utils.ObjectFactory;
 
 public class LevelLoadingScreen extends AbstractLoadingScreen

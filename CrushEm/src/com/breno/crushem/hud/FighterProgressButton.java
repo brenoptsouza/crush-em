@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.breno.crushem.BuildingType;
 import com.breno.crushem.MilitaryBuilding;
 import com.breno.crushem.bean.BuildingBean;
-import com.breno.factories.GameFactory;
+import com.breno.crushem.factories.GameFactory;
 
 public class FighterProgressButton extends Group
 {

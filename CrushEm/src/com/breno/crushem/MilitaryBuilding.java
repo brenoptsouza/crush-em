@@ -2,7 +2,7 @@ package com.breno.crushem;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.breno.crushem.bean.MilitaryBuildingBean;
-import com.breno.factories.GameFactory;
+import com.breno.crushem.factories.GameFactory;
 
 public class MilitaryBuilding extends Building
 {
